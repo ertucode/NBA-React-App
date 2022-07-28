@@ -1,0 +1,54 @@
+@import "list-number.css";
+@import "spinner.css";
+@import "player-link.css";
+@import "compare-container.css";
+@import "player-stats.css";
+@import "navbar.css";
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+html, body, #root, .app-container {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin:0;
+    padding: 0;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.box-container {
+    margin: 20px;
+    padding: 20px;
+}
+
+.search-player-box {
+    position: relative;
+    background-color: white;
+}
+
+.input-field {
+    width: fit-content;
+    position: relative;
+}
+
+.player-list-container {
+    max-width: 30vw;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

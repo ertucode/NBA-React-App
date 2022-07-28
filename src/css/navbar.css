@@ -1,0 +1,8 @@
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 2px solid gray;
+    position: sticky;
+}
