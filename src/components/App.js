@@ -1,28 +1,31 @@
-import CompareContainer from "./compare/CompareContainer.js";
 import "../css/app.css";
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar.js";
-
-export const PlayersContext = React.createContext();
+import StatsTablesContainer from "./stats_compare/StatsTablesContainer";
+import getPlayerStats from "../utils/getPlayerStats";
+import getPlayerName from "../utils/getPlayerName";
 
 function App() {
-	const [pickedPlayers, setPickedPlayers] = useState([]);
-
-	const contextValues = {
-		pickedPlayers,
-		setPickedPlayers,
-	};
+	const [desiredPlayers, setDesiredPlayers] = useState([]);
+	const [stats, setStats] = useState([]);
 
 	useEffect(() => {
-		console.log("Picked players", pickedPlayers);
-	}, [pickedPlayers]);
+		if (desiredPlayers.length === 0) return;
+
+		desiredPlayers.forEach((desiredPlayer) => {
+			if (!desiredPlayer.gotStats) {
+				const player = desiredPlayer.player;
+				getPlayerStats(getPlayerName(player), player.id, setStats);
+				desiredPlayer.gotStats = true;
+			}
+		});
+	}, [desiredPlayers]);
 
 	return (
 		<div className="app-container">
-			<Navbar />
-			<PlayersContext.Provider value={contextValues}>
-				<CompareContainer />
-			</PlayersContext.Provider>
+			{desiredPlayers.length !== 0 ? "" : ""}
+			<Navbar setDesiredPlayers={setDesiredPlayers} />
+			<StatsTablesContainer stats={stats} />
 		</div>
 	);
 }

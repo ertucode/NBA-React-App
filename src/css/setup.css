@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+:root {
+    --clr-primary: #430f58;
+    --clr-secondary: #6643b5;
+    --clr-third: #8594e4;
+    --clr-fourth: white;
+
+    --ff-primary: "Open Sans", sans-serif;
+    --ff-secondary: "Arial" sans-serif;
+
+    --fs-300: 0.8125rem;
+    --fs-400: 0.875rem;
+    --fs-500: 0.9375rem;
+    --fs-600: 1rem;
+    --fs-700: 1.875rem;
+    --fs-800: 2.5rem;
+    --fs-900: 3.5rem;
+
+    --fs-body: var(--fs-300);
+    --fs-primary-heading: var(--fs-600);
+    --fs-secondary-heading: var(--fs-500);
+    --fs-button: var(--fs-200);
+
+    font-family: var(--ff-primary);
+}
+
+html, body, #root, .app-container {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin:0;
+    padding: 0;
+}
+
+select:hover {
+    cursor: pointer;
+}

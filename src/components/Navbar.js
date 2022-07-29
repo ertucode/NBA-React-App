@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import getPlayersOfCount from "../utils/getPlayersOfCount";
 import TextInputField from "./search_box/TextInputField";
+import useDebounce from "../utils/useDebounce";
 
-export default function Navbar() {
+export default function Navbar({ setDesiredPlayers }) {
+	const [playerSearchTerm, setPlayerSearchTerm] = useState();
+	const debouncedPlayerSearchTerm = useDebounce(playerSearchTerm, 500);
 	const [players, setPlayers] = useState([]);
+
+	useEffect(() => {
+		getPlayersOfCount(setPlayers, debouncedPlayerSearchTerm, 10);
+	}, [debouncedPlayerSearchTerm]);
 
 	return (
 		<div className="navbar">
@@ -11,7 +18,18 @@ export default function Navbar() {
 			<TextInputField
 				buttonName="Add Player"
 				onChangeCallback={(val) => {
-					getPlayersOfCount(setPlayers, val, 10);
+					setPlayerSearchTerm(val);
+				}}
+				onSubmitCallback={(val) => {
+					setDesiredPlayers((prevPlayers) => {
+						const newPlayers = [...prevPlayers];
+
+						newPlayers.push({
+							player: players[0],
+							gotStats: false,
+						});
+						return newPlayers;
+					});
 				}}
 				players={players}
 			/>

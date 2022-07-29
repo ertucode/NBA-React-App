@@ -1,0 +1,37 @@
+.stats-table-header {
+    color: var(--clr-secondary);
+    margin-left: 1rem;
+}
+
+.stats-table {
+    border-collapse: collapse;
+    margin: 1rem 3rem;
+    font-size: 0.7em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.stats-table thead tr {
+background-color: var(--clr-third);
+color: #ffffff;
+}
+
+.stats-table th,
+.stats-table td {
+padding: .5em .8em;
+text-align: center; 
+}
+
+.stats-table tbody tr {
+border-bottom: 1px solid #dddddd;
+}
+
+.stats-table tbody tr:nth-of-type(even) {
+background-color: #f3f3f3;
+}
+
+.stats-table tbody tr:last-of-type {
+border-bottom: 2px solid #009879;
+}
