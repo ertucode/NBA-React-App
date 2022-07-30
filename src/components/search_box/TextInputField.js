@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import getPlayerName from "../../utils/getPlayerName";
 import InfoPopup from "../_general/InfoPopup";
 import DropdownMenu from "./DropdownMenu";
 
@@ -7,7 +6,7 @@ export default function TextInputField({
 	buttonName,
 	handleInputChange,
 	handleOptionClick,
-	players,
+	searchedPlayers,
 }) {
 	const inputRef = useRef();
 
@@ -26,13 +25,11 @@ export default function TextInputField({
 						type="text"
 					></input>
 					<>
-						{players.length > 0 && (
+						{searchedPlayers.length > 0 && (
 							<DropdownMenu
-								options={players.map((player) =>
-									getPlayerName(player)
-								)}
-								handleOptionClick={(val) => {
-									handleOptionClick(val);
+								options={searchedPlayers}
+								handleOptionClick={(id) => {
+									handleOptionClick(id);
 									inputRef.current.value = "";
 								}}
 							/>

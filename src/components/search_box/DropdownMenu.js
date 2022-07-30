@@ -3,14 +3,14 @@ import React from "react";
 export default function DropdownMenu({ options, handleOptionClick }) {
 	return (
 		<div className="dropdown">
-			{options.map((option, index) => {
+			{options.map((option) => {
 				return (
 					<div
-						key={index}
+						key={option.id}
 						className="dropdown__option"
-						onClick={() => handleOptionClick(option)}
+						onClick={() => handleOptionClick(option.id)}
 					>
-						{option}
+						{option.fullName}
 					</div>
 				);
 			})}

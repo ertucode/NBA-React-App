@@ -1,6 +1,7 @@
 
 .player-anchor-container {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .player-anchor {

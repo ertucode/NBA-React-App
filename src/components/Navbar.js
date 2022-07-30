@@ -2,45 +2,47 @@ import React, { useState, useEffect } from "react";
 import getPlayersOfCount from "../utils/getPlayersOfCount";
 import TextInputField from "./search_box/TextInputField";
 import useDebounce from "../utils/useDebounce";
-import getPlayerName from "../utils/getPlayerName";
+import Player from "../utils/Player";
 
 export default function Navbar({ setDesiredPlayers }) {
 	const [playerSearchTerm, setPlayerSearchTerm] = useState();
 	const debouncedPlayerSearchTerm = useDebounce(playerSearchTerm, 500);
-	const [players, setPlayers] = useState([]);
+	const [searchedPlayers, setSearchedPlayers] = useState([]);
 
 	useEffect(() => {
-		getPlayersOfCount(setPlayers, debouncedPlayerSearchTerm, 10);
+		getPlayersOfCount(debouncedPlayerSearchTerm, 10).then((newPlayers) => {
+			setSearchedPlayers(() =>
+				newPlayers.map((playerData) => new Player(playerData))
+			);
+		});
 	}, [debouncedPlayerSearchTerm]);
 
-	function handleOptionClick(name) {
+	function handleOptionClick(id) {
 		setDesiredPlayers((prevDesiredPlayers) => {
-			const newDesiredPlayer = {
-				player: players.find(
-					(player) => name === getPlayerName(player)
-				),
-				gotStats: false,
-			};
+			const newDesiredPlayer = searchedPlayers.find(
+				(player) => player.id === id
+			);
 
-			if (newDesiredPlayer.player == null) {
+			if (newDesiredPlayer == null) {
 				console.log(
 					"Something went wrong with finding player",
-					players,
-					name
+					searchedPlayers,
+					id
 				);
 				return prevDesiredPlayers;
 			}
 
 			if (
 				prevDesiredPlayers.find(
-					(player) => newDesiredPlayer.player.id === player.player.id
+					(prevDesiredPlayer) =>
+						prevDesiredPlayer.id === newDesiredPlayer.id
 				)
 			) {
 				console.log("Same player exits");
 				return prevDesiredPlayers;
 			}
 
-			setPlayers([]);
+			setSearchedPlayers([]);
 			return [...prevDesiredPlayers, newDesiredPlayer];
 		});
 	}
@@ -50,13 +52,9 @@ export default function Navbar({ setDesiredPlayers }) {
 			<h1 className="site-name">Basketball Stats</h1>
 			<TextInputField
 				buttonName="Add Player"
-				handleInputChange={(query) => {
-					setPlayerSearchTerm(query);
-				}}
-				handleOptionClick={(name) => {
-					handleOptionClick(name);
-				}}
-				players={players}
+				handleInputChange={setPlayerSearchTerm}
+				handleOptionClick={handleOptionClick}
+				searchedPlayers={searchedPlayers}
 			/>
 		</div>
 	);

@@ -1,7 +1,5 @@
 import React from "react";
 import PlayerAnchor from "./PlayerAnchor";
-import getPlayerName from "../../utils/getPlayerName";
-import getUniqueId from "../../utils/getUniqueId";
 
 export default function PlayerAnchorContainer({
 	desiredPlayers,
@@ -13,9 +11,9 @@ export default function PlayerAnchorContainer({
 			{desiredPlayers.map((desiredPlayer) => {
 				return (
 					<PlayerAnchor
-						key={getUniqueId()}
+						key={desiredPlayer.id}
 						className="player-anchor"
-						playerName={getPlayerName(desiredPlayer.player)}
+						fullName={desiredPlayer.fullName}
 						active={true}
 					></PlayerAnchor>
 				);
@@ -23,11 +21,13 @@ export default function PlayerAnchorContainer({
 			{pastDesiredPlayers.map((desiredPlayer) => {
 				return (
 					<PlayerAnchor
-						key={getUniqueId()}
+						key={desiredPlayer.id}
 						className="player-anchor"
-						playerName={getPlayerName(desiredPlayer.player)}
+						fullName={desiredPlayer.fullName}
 						active={false}
-						handlePlayerUndo={handlePlayerUndo}
+						handlePlayerUndo={() =>
+							handlePlayerUndo(desiredPlayer.id)
+						}
 					></PlayerAnchor>
 				);
 			})}

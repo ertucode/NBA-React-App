@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import getDesiredStats from "../../utils/getDesiredStats";
 import getUniqueId from "../../utils/getUniqueId";
+import TryAgain from "./TryAgain";
 
 const statCategoriesToShow = [
 	"games_played",
@@ -11,15 +12,46 @@ const statCategoriesToShow = [
 	"ftm",
 ];
 
-export default function StatsTable({ playerStats }) {
+export default function StatsTable({ desiredPlayer }) {
+	const [gettingStats, setGettingStats] = useState(true);
+	const [gettingStatsFailed, setGettingStatsFailed] = useState(false);
+
+	function handleGettingStatsFailed() {
+		return (
+			<tr>
+				<th>
+					Getting stats failed...{" "}
+					<TryAgain
+						handleClick={() => {
+							console.log("trying again");
+							setGettingStatsFailed(false);
+							setGettingStats(true);
+							desiredPlayer.getStats(
+								setGettingStats,
+								setGettingStatsFailed
+							);
+						}}
+					/>
+				</th>
+			</tr>
+		);
+	}
+
+	useEffect(() => {
+		if (!desiredPlayer.gotStats)
+			desiredPlayer.getStats(setGettingStats, setGettingStatsFailed);
+		else setGettingStats(false);
+	}, [desiredPlayer]);
+
 	function loadBody() {
 		const rows = [];
 
-		const desiredStats = getDesiredStats(statCategoriesToShow, playerStats);
+		const desiredStats = getDesiredStats(
+			statCategoriesToShow,
+			desiredPlayer.seasonStats
+		);
 
-		for (const [season, seasonStat] of Object.entries(
-			desiredStats.seasonStats
-		)) {
+		for (const [season, seasonStat] of Object.entries(desiredStats)) {
 			rows.push([season, ...Object.values(seasonStat)]);
 		}
 
@@ -44,7 +76,21 @@ export default function StatsTable({ playerStats }) {
 					})}
 				</tr>
 			</thead>
-			<tbody>{loadBody()}</tbody>
+			<tbody>
+				{gettingStats
+					? handleLoading()
+					: gettingStatsFailed
+					? handleGettingStatsFailed()
+					: loadBody()}
+			</tbody>
 		</table>
+	);
+}
+
+function handleLoading() {
+	return (
+		<tr>
+			<th>Loading</th>
+		</tr>
 	);
 }
