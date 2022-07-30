@@ -6,6 +6,7 @@ import getUniqueId from "../../utils/getUniqueId";
 export default function PlayerAnchorContainer({
 	desiredPlayers,
 	pastDesiredPlayers,
+	handlePlayerUndo,
 }) {
 	return (
 		<nav className="player-anchor-container">
@@ -26,6 +27,7 @@ export default function PlayerAnchorContainer({
 						className="player-anchor"
 						playerName={getPlayerName(desiredPlayer.player)}
 						active={false}
+						handlePlayerUndo={handlePlayerUndo}
 					></PlayerAnchor>
 				);
 			})}

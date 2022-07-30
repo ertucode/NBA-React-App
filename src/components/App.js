@@ -5,11 +5,14 @@ import StatsTablesContainer from "./stats_compare/StatsTablesContainer";
 import getPlayerStats from "../utils/getPlayerStats";
 import getPlayerName from "../utils/getPlayerName";
 import PlayerAnchorContainer from "./stats_compare/PlayerAnchorContainer";
+import getPlayerIndexFromDesiredPlayers from "../utils/getPlayerIndexFromDesiredPlayer";
+import removePlayerFromArray from "../utils/removePlayerFromArray";
 
 function App() {
 	const [desiredPlayers, setDesiredPlayers] = useState([]);
 	const [stats, setStats] = useState([]);
-	const [pastDesiredPlayers, setPastDesiredPlayers] = useState([]);
+	const [pastDesiredPlayersWithStats, setPastDesiredPlayersWithStats] =
+		useState([]);
 
 	useEffect(() => {
 		if (desiredPlayers.length === 0) return;
@@ -17,15 +20,19 @@ function App() {
 		desiredPlayers.forEach((desiredPlayer) => {
 			if (!desiredPlayer.gotStats) {
 				const player = desiredPlayer.player;
-				getPlayerStats(getPlayerName(player), player.id, setStats);
+				setStats((prevStats) => [
+					...prevStats,
+					getPlayerStats(getPlayerName(player), player.id),
+				]);
 				desiredPlayer.gotStats = true;
 			}
 		});
 	}, [desiredPlayers]);
 
 	function handlePlayerRemove(playerName) {
-		const playerIndex = desiredPlayers.findIndex(
-			(playerObject) => getPlayerName(playerObject.player) === playerName
+		const playerIndex = getPlayerIndexFromDesiredPlayers(
+			desiredPlayers,
+			playerName
 		);
 
 		if (playerIndex === -1) {
@@ -37,26 +44,49 @@ function App() {
 			return;
 		}
 
-		addToPastDesiredPlayers({ ...desiredPlayers[playerIndex] });
+		addToPastDesiredPlayersWithStats({
+			...desiredPlayers[playerIndex],
+			...stats[playerIndex].seasonStats,
+		});
 
-		const newDesiredPlayers = [...desiredPlayers];
-		newDesiredPlayers.splice(playerIndex, 1);
-		setDesiredPlayers(newDesiredPlayers);
+		setDesiredPlayers((prev) => removePlayerFromArray(prev, playerIndex));
 
-		const newStats = [...stats];
-		newStats.splice(playerIndex, 1);
-		setStats(newStats);
+		setStats((prev) => removePlayerFromArray(prev, playerIndex));
 	}
 
-	function addToPastDesiredPlayers(deletedPlayer) {
-		const newPastDesiredPlayers = [...pastDesiredPlayers];
+	function addToPastDesiredPlayersWithStats(deletedPlayerWithStats) {
+		const newPastDesiredPlayersWithStats = [...pastDesiredPlayersWithStats];
 
-		if (newPastDesiredPlayers.length > 3)
-			newPastDesiredPlayers.splice(0, 1);
+		if (newPastDesiredPlayersWithStats.length > 3)
+			newPastDesiredPlayersWithStats.splice(0, 1);
 
-		newPastDesiredPlayers.push(deletedPlayer);
+		newPastDesiredPlayersWithStats.push(deletedPlayerWithStats);
 
-		setPastDesiredPlayers(newPastDesiredPlayers);
+		setPastDesiredPlayersWithStats(newPastDesiredPlayersWithStats);
+	}
+
+	function handlePlayerUndo(playerName) {
+		const undoIndex =
+			playerName == null
+				? 0
+				: getPlayerIndexFromDesiredPlayers(
+						pastDesiredPlayersWithStats,
+						playerName
+				  );
+
+		const newPastDesiredPlayersWithStats = [...pastDesiredPlayersWithStats];
+
+		const undoPlayer = newPastDesiredPlayersWithStats.splice(
+			undoIndex,
+			1
+		)[0];
+
+		const player = undoPlayer.player;
+		getPlayerStats(getPlayerName(player), player.id, setStats);
+
+		setPastDesiredPlayersWithStats(newPastDesiredPlayersWithStats);
+
+		setDesiredPlayers((prevValue) => [...prevValue, undoPlayer]);
 	}
 
 	return (
@@ -64,7 +94,8 @@ function App() {
 			<Navbar setDesiredPlayers={setDesiredPlayers} />
 			<PlayerAnchorContainer
 				desiredPlayers={desiredPlayers}
-				pastDesiredPlayers={pastDesiredPlayers}
+				pastDesiredPlayersWithStats={pastDesiredPlayersWithStats}
+				handlePlayerUndo={handlePlayerUndo}
 			/>
 			<StatsTablesContainer
 				stats={stats}

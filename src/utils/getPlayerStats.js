@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function getPlayerStats(name, id, setStats) {
+export default async function getPlayerStats(name, id) {
 	let playerStatsArray = [];
 	let season = 2021;
 
@@ -35,9 +35,5 @@ export default async function getPlayerStats(name, id, setStats) {
 
 	console.log(playerStats);
 
-	setStats((prevStats) => {
-		const newStats = [...prevStats];
-		newStats.push(playerStats);
-		return newStats;
-	});
+	return playerStats;
 }
