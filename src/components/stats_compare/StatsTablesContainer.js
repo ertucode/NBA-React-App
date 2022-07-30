@@ -10,15 +10,11 @@ export default function StatsTablesContainer({
 
 		return desiredPlayers.map((desiredPlayer) => {
 			return (
-				<section key={desiredPlayer.id} id={desiredPlayer.fullName}>
-					<h1
-						className="stats-table-header"
-						onClick={() => handlePlayerRemove(desiredPlayer)}
-					>
-						{desiredPlayer.fullName}
-					</h1>
-					<StatsTable desiredPlayer={desiredPlayer} />
-				</section>
+				<StatsTable
+					desiredPlayer={desiredPlayer}
+					handlePlayerRemove={handlePlayerRemove}
+					key={desiredPlayer.id}
+				/>
 			);
 		});
 	}

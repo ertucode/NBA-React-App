@@ -14,7 +14,6 @@ export default function PlayerAnchor({ fullName, active, handlePlayerUndo }) {
 				active
 					? undefined
 					: () => {
-							console.log("Undoing " + fullName);
 							handlePlayerUndo();
 					  }
 			}

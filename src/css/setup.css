@@ -10,6 +10,7 @@
     --clr-secondary: #6643b5;
     --clr-third: #8594e4;
     --clr-fourth: white;
+    --clr-danger: hsl(0, 90%, 50%);
 
     --ff-primary: "Open Sans", sans-serif;
     --ff-secondary: "Arial" sans-serif;

@@ -4,8 +4,7 @@
     justify-content: space-around;
     align-items: center;
     background-color: var(--clr-third);
-    border-bottom: 2px solid var(--clr-primary);
+    box-shadow: 0 5px 2px var(--clr-third);
     color: var(--clr-fourth);
-    position: sticky;
     font-size: var(--fs-secondary-heading);
 }

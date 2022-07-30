@@ -26,3 +26,32 @@
     background-color: green;
     color: var(--clr-fourth);
 }
+
+.loading {
+    position: relative;
+}
+
+
+.loading::after {
+    content: ".......";
+    position: absolute;
+    left: 88%;
+    top: 0%;
+    height: 100%;
+    overflow: hidden;
+    animation: change-width 2s infinite;
+    color: var(--clr-primary);
+    font-weight: 700;
+    
+}
+
+@keyframes change-width {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 8%;
+    }
+}
+

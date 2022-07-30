@@ -10,5 +10,16 @@
 .app-container {
     display: flex;
     flex-direction: column;
+    width: min(100vw, 2000px);
 }
+
+body {
+    overflow-x: hidden;
+}
+
+main {
+    margin-top: 1rem;
+}
+
+
 

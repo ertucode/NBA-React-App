@@ -1,28 +1,120 @@
+
 .stats-tables-container {
-    scroll-behavior: smooth;
+    margin: .5rem 1rem;
+}
+
+.stats-table-container {
+    border-radius: 5px;
+    margin: 3rem auto;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .stats-table-header {
     color: var(--clr-secondary);
-    margin-left: 1rem;
-    width: fit-content;
+    margin: .5rem auto 0 1rem;
 }
 
 .stats-table-header:hover {
-    color: var(--clr-third);
+    color: var(--clr-danger);
     text-decoration: line-through;
     cursor: pointer;
 }
 
+.stats-table-container {
+    overflow: auto;
+    display: grid;
+    grid-template-columns: auto;
+    align-items: stretch;
+}
+
 .stats-table {
     border-collapse: collapse;
-    margin: 1rem 3rem;
+    margin: 1rem 1rem;
     font-size: 0.7em;
-    min-width: 400px;
     border-radius: 5px 5px 0 0;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    scroll-behavior: smooth;
 }
+
+
+.stats-table-top {
+    display:flex;
+    justify-content: flex-end;
+}
+
+.stats-table-top button {
+    cursor: pointer;
+    text-decoration: none;
+
+    color: var(--clr-fourth);
+    background-color: var(--clr-secondary);
+    border: none;
+    height: 3em;
+    width: 3em;
+    padding: 0 .5em;
+    font-size: var(--fs-300);
+    font-weight: 700;
+}
+
+.stats-table-top .button-delete {
+    border-radius: 0 5px 0 0;
+}
+
+.stats-table-top .button-minimize:hover {
+    background-color: var(--clr-third);
+}
+
+.stats-table-top .button-delete:hover {
+    background-color: var(--clr-danger);
+}
+
+.stats-table-top .button-minimize {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.stats-table-top .button-minimize.minimized::before {
+    content: attr(data-content);
+    animation: move-top-line .5s ease-in-out forwards;
+}
+
+.stats-table-top .button-minimize.minimized::after {
+    content: attr(data-content);
+    animation: move-bottom-line .5s ease-in-out forwards;
+}
+
+@keyframes move-top-line {
+    0% {
+        transform: translateY(1.1em)
+    }
+
+    50% {
+        transform: translateY(.3em)
+    }
+
+    100% {
+        transform: translateY(.7em)
+    }
+}
+
+@keyframes move-bottom-line {
+    0% {
+        transform: translateY(-1.1em)
+    }
+
+    50% {
+        transform: translateY(-.3em)
+    }
+
+    100% {
+        transform: translateY(-.7em)
+    }
+}
+
+
+
 
 .stats-table thead tr {
 background-color: var(--clr-third);

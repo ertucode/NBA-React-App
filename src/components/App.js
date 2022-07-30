@@ -45,15 +45,17 @@ function App() {
 	return (
 		<div className="app-container">
 			<Navbar setDesiredPlayers={setDesiredPlayers} />
-			<PlayerAnchorContainer
-				desiredPlayers={desiredPlayers}
-				pastDesiredPlayers={pastDesiredPlayers}
-				handlePlayerUndo={handlePlayerUndo}
-			/>
-			<StatsTablesContainer
-				desiredPlayers={desiredPlayers}
-				handlePlayerRemove={handlePlayerRemove}
-			/>
+			<main>
+				<PlayerAnchorContainer
+					desiredPlayers={desiredPlayers}
+					pastDesiredPlayers={pastDesiredPlayers}
+					handlePlayerUndo={handlePlayerUndo}
+				/>
+				<StatsTablesContainer
+					desiredPlayers={desiredPlayers}
+					handlePlayerRemove={handlePlayerRemove}
+				/>
+			</main>
 		</div>
 	);
 }

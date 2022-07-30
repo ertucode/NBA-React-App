@@ -21,8 +21,6 @@ export default class Player {
 				? 2021
 				: parseInt(Math.min(...previouslyFetchedSeasons));
 
-		console.log(season);
-
 		this.gettingStatsFailed = false;
 
 		let seasonsSinceLastResponse = 0;
@@ -56,8 +54,6 @@ export default class Player {
 				break;
 			}
 		}
-
-		console.log(this.fetchedStats);
 
 		if (!this.gettingStatsFailed) this.seasonStats = this.fetchedStats;
 

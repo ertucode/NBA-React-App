@@ -7,6 +7,7 @@ import Player from "../utils/Player";
 export default function Navbar({ setDesiredPlayers }) {
 	const [playerSearchTerm, setPlayerSearchTerm] = useState();
 	const debouncedPlayerSearchTerm = useDebounce(playerSearchTerm, 500);
+	const [inputsAreDifferent, setInputsAreDifferent] = useState(false);
 	const [searchedPlayers, setSearchedPlayers] = useState([]);
 
 	useEffect(() => {
@@ -47,14 +48,18 @@ export default function Navbar({ setDesiredPlayers }) {
 		});
 	}
 
+	useEffect(() => {
+		setInputsAreDifferent(playerSearchTerm !== debouncedPlayerSearchTerm);
+	}, [playerSearchTerm, debouncedPlayerSearchTerm]);
+
 	return (
 		<div className="navbar">
 			<h1 className="site-name">Basketball Stats</h1>
 			<TextInputField
-				buttonName="Add Player"
 				handleInputChange={setPlayerSearchTerm}
 				handleOptionClick={handleOptionClick}
 				searchedPlayers={searchedPlayers}
+				inputsAreDifferent={inputsAreDifferent}
 			/>
 		</div>
 	);

@@ -1,31 +1,47 @@
-import React, { useRef } from "react";
-import InfoPopup from "../_general/InfoPopup";
+import React, { useRef, useState, useEffect } from "react";
 import DropdownMenu from "./DropdownMenu";
 
 export default function TextInputField({
-	buttonName,
 	handleInputChange,
 	handleOptionClick,
 	searchedPlayers,
+	inputsAreDifferent,
 }) {
 	const inputRef = useRef();
 
+	const [showDropdown, setShowDropdown] = useState(false);
+
+	useEffect(() => {
+		inputRef.current.parentNode.classList.toggle(
+			"loading",
+			inputsAreDifferent
+		);
+	}, [inputsAreDifferent]);
+
 	return (
 		<>
-			<form className="input-field">
-				<InfoPopup
-					info={`Can't add player if the input field is not green`}
-				/>
+			<div className="input-field">
 				<div className="input-with-dropdown">
 					<input
+						className={
+							searchedPlayers.length === 0 || !showDropdown
+								? "empty"
+								: ""
+						}
 						onChange={(e) => {
 							handleInputChange(inputRef.current.value);
 						}}
 						ref={inputRef}
+						onFocus={() => setShowDropdown(true)}
+						onBlur={() => {
+							setTimeout(() => setShowDropdown(false), 100);
+						}}
 						type="text"
+						placeholder="Search Player/Team"
 					></input>
+
 					<>
-						{searchedPlayers.length > 0 && (
+						{searchedPlayers.length > 0 && showDropdown && (
 							<DropdownMenu
 								options={searchedPlayers}
 								handleOptionClick={(id) => {
@@ -36,9 +52,7 @@ export default function TextInputField({
 						)}
 					</>
 				</div>
-
-				<button type="submit">{buttonName}</button>
-			</form>
+			</div>
 		</>
 	);
 }

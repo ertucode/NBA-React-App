@@ -16,7 +16,6 @@
     display: flex;
     flex-direction: column;
     margin-right: .2rem;
-
 }
 
 .dropdown__option {
@@ -36,6 +35,7 @@
     background-color: var(--clr-fourth);
     color: var(--clr-primary);
     font-size: .8em;
+    padding: .5em 1em;
 }
 
 .input-field input {
@@ -44,7 +44,11 @@
     border-radius: .2em .2em 0 0;
     margin-right: .5em;
     outline: none;
-    padding: .2em .5em;
+}
+
+.input-field input.empty {
+    border-bottom: 1px solid var(--clr-primary);
+    border-radius: .2em;
 }
 
 .dropdown, .input-field input {
