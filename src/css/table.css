@@ -1,6 +1,17 @@
+.stats-tables-container {
+    scroll-behavior: smooth;
+}
+
 .stats-table-header {
     color: var(--clr-secondary);
     margin-left: 1rem;
+    width: fit-content;
+}
+
+.stats-table-header:hover {
+    color: var(--clr-third);
+    text-decoration: line-through;
+    cursor: pointer;
 }
 
 .stats-table {

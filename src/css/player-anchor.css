@@ -1,0 +1,34 @@
+
+.player-anchor-container {
+    display: flex;
+}
+
+.player-anchor {
+    cursor: pointer;
+    text-decoration: none;
+
+    background-color: var(--clr-secondary);
+    color: var(--clr-fourth);
+    border: none;
+    margin: .5em 1em;
+    padding: .5em 1em;
+    font-size: var(--fs-300);
+}
+
+.player-anchor:hover {
+    background-color: var(--clr-third);
+    outline: 2px solid var(--clr-third);
+    outline-offset: 2px;
+}
+
+.player-anchor.deactivated {
+    text-decoration: line-through;
+    background-color: var(--clr-third);
+    color: var(--clr-fourth);
+}
+
+.player-anchor.deactivated:hover {
+    text-decoration: none;
+    background-color: var(--clr-primary);
+    color: var(--clr-fourth);
+}

@@ -4,6 +4,8 @@
 @import "../components/_general/spinner.css";
 @import "../components/_general/info-popup.css";
 @import "table.css";
+@import "dropdown.css";
+@import "player-anchor.css";
 
 .app-container {
     display: flex;

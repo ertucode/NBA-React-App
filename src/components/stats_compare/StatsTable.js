@@ -1,5 +1,6 @@
 import React from "react";
 import getDesiredStats from "../../utils/getDesiredStats";
+import getUniqueId from "../../utils/getUniqueId";
 
 const statCategoriesToShow = [
 	"games_played",
@@ -24,13 +25,9 @@ export default function StatsTable({ playerStats }) {
 
 		return rows.map((row) => {
 			return (
-				<tr key={new Date() * Math.random() + new Date()}>
+				<tr key={getUniqueId()}>
 					{row.map((val) => {
-						return (
-							<td key={new Date() * Math.random() + new Date()}>
-								{val}
-							</td>
-						);
+						return <td key={getUniqueId()}>{val}</td>;
 					})}
 				</tr>
 			);
@@ -43,11 +40,7 @@ export default function StatsTable({ playerStats }) {
 				<tr>
 					<th>Season</th>
 					{statCategoriesToShow.map((stat) => {
-						return (
-							<th key={new Date() * Math.random() + new Date()}>
-								{stat}
-							</th>
-						);
+						return <th key={getUniqueId()}>{stat}</th>;
 					})}
 				</tr>
 			</thead>

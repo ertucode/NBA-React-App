@@ -1,47 +1,46 @@
 import React, { useRef } from "react";
 import getPlayerName from "../../utils/getPlayerName";
 import InfoPopup from "../_general/InfoPopup";
+import DropdownMenu from "./DropdownMenu";
 
 export default function TextInputField({
 	buttonName,
-	onChangeCallback,
-	onSubmitCallback,
+	handleInputChange,
+	handleOptionClick,
 	players,
 }) {
 	const inputRef = useRef();
 
 	return (
 		<>
-			<form
-				className="input-field"
-				onSubmit={(e) => {
-					e.preventDefault();
-					onSubmitCallback(inputRef.current.value);
-					inputRef.current.value = "";
-				}}
-			>
+			<form className="input-field">
 				<InfoPopup
 					info={`Can't add player if the input field is not green`}
 				/>
-				<input
-					onChange={(e) => {
-						onChangeCallback(inputRef.current.value);
-					}}
-					ref={inputRef}
-					type="text"
-					list="players"
-					className={players.length === 1 ? "bg-green" : ""}
-				></input>
+				<div className="input-with-dropdown">
+					<input
+						onChange={(e) => {
+							handleInputChange(inputRef.current.value);
+						}}
+						ref={inputRef}
+						type="text"
+					></input>
+					<>
+						{players.length > 0 && (
+							<DropdownMenu
+								options={players.map((player) =>
+									getPlayerName(player)
+								)}
+								handleOptionClick={(val) => {
+									handleOptionClick(val);
+									inputRef.current.value = "";
+								}}
+							/>
+						)}
+					</>
+				</div>
+
 				<button type="submit">{buttonName}</button>
-				<datalist id="players">
-					{players.map((player) => {
-						return (
-							<option key={player.id}>
-								{getPlayerName(player)}
-							</option>
-						);
-					})}
-				</datalist>
 			</form>
 		</>
 	);
