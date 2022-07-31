@@ -5,6 +5,7 @@ export default function PlayerAnchorContainer({
 	desiredPlayers,
 	pastDesiredPlayers,
 	handlePlayerUndo,
+	handlePlayerForeverDelete,
 }) {
 	return (
 		<nav className="player-anchor-container">
@@ -28,6 +29,9 @@ export default function PlayerAnchorContainer({
 						handlePlayerUndo={() =>
 							handlePlayerUndo(desiredPlayer.id)
 						}
+						handlePlayerForeverDelete={() => {
+							handlePlayerForeverDelete(desiredPlayer.id);
+						}}
 					></PlayerAnchor>
 				);
 			})}

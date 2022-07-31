@@ -1,9 +1,13 @@
 import axios from "axios";
+import Table from "./Table";
+// import { PRIORITY_ORDER } from "./statMap";
 
 export default class Player {
 	constructor(playerData) {
 		this.id = playerData.id;
 		this.fullName = `${playerData.first_name} ${playerData.last_name}`;
+		this.position = playerData.position;
+		this.team = playerData.team.full_name;
 		this.fetchedStats = {};
 	}
 
@@ -55,7 +59,9 @@ export default class Player {
 			}
 		}
 
-		if (!this.gettingStatsFailed) this.seasonStats = this.fetchedStats;
+		if (!this.gettingStatsFailed) {
+			this.seasonStats = new Table(this.fetchedStats);
+		}
 
 		setGettingStats(false);
 	}

@@ -5,6 +5,7 @@
     border: 1px solid var(--clr-primary);
     border-top: none;
     border-radius: 0 0 .2em .2em;
+    z-index: 1;
 }
 
 .dropdown .dropdown__option:last-of-type {
@@ -40,7 +41,7 @@
 
 .input-field input {
     border: 1px solid var(--clr-primary);
-    border-bottom: none;
+    border-bottom: 1px solid var(--clr-fourth);
     border-radius: .2em .2em 0 0;
     margin-right: .5em;
     outline: none;

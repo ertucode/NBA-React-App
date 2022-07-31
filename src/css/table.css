@@ -8,11 +8,19 @@
     margin: 3rem auto;
     padding-bottom: 1rem;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: grid;
+    grid-template-columns: auto;
+    align-items: stretch;
 }
 
 .stats-table-header {
+    --left-margin: 1rem;
     color: var(--clr-secondary);
-    margin: .5rem auto 0 1rem;
+    margin: .5rem auto 0 var(--left-margin);
+    position: sticky;
+    left: var(--left-margin);
 }
 
 .stats-table-header:hover {
@@ -21,51 +29,45 @@
     cursor: pointer;
 }
 
-.stats-table-container {
-    overflow: auto;
-    display: grid;
-    grid-template-columns: auto;
-    align-items: stretch;
-}
-
 .stats-table {
     border-collapse: collapse;
     margin: 1rem 1rem;
     font-size: 0.7em;
     border-radius: 5px 5px 0 0;
     scroll-behavior: smooth;
+    transition: margin  250ms linear;
+
+    --row-padding: .4rem;
 }
 
+/* --- TOP SECTION--- */
 
 .stats-table-top {
     display:flex;
     justify-content: flex-end;
 }
 
+/* --- BUTTON --- */
+
 .stats-table-top button {
     cursor: pointer;
     text-decoration: none;
 
+    --button-size: 3em;
+
     color: var(--clr-fourth);
     background-color: var(--clr-secondary);
     border: none;
-    height: 3em;
-    width: 3em;
+    height: var(--button-size);
+    width: var(--button-size);
     padding: 0 .5em;
-    font-size: var(--fs-300);
-    font-weight: 700;
+    font-size: var(--fs-500);
 }
 
 .stats-table-top .button-delete {
     border-radius: 0 5px 0 0;
-}
-
-.stats-table-top .button-minimize:hover {
-    background-color: var(--clr-third);
-}
-
-.stats-table-top .button-delete:hover {
-    background-color: var(--clr-danger);
+    position:sticky;
+    right: 0;
 }
 
 .stats-table-top .button-minimize {
@@ -73,48 +75,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: sticky;
+    right: var(--button-size);
 }
 
-.stats-table-top .button-minimize.minimized::before {
-    content: attr(data-content);
-    animation: move-top-line .5s ease-in-out forwards;
-}
-
-.stats-table-top .button-minimize.minimized::after {
-    content: attr(data-content);
-    animation: move-bottom-line .5s ease-in-out forwards;
-}
-
-@keyframes move-top-line {
-    0% {
-        transform: translateY(1.1em)
-    }
-
-    50% {
-        transform: translateY(.3em)
-    }
-
-    100% {
-        transform: translateY(.7em)
-    }
-}
-
-@keyframes move-bottom-line {
-    0% {
-        transform: translateY(-1.1em)
-    }
-
-    50% {
-        transform: translateY(-.3em)
-    }
-
-    100% {
-        transform: translateY(-.7em)
-    }
-}
-
-
-
+/* --- MAIN TABLE LAYOUT --- */
 
 .stats-table thead tr {
 background-color: var(--clr-third);
@@ -123,7 +88,7 @@ color: #ffffff;
 
 .stats-table th,
 .stats-table td {
-padding: .5em .8em;
+padding: var(--row-padding) .8em;
 text-align: center; 
 }
 
@@ -137,4 +102,42 @@ background-color: #f3f3f3;
 
 .stats-table tbody tr:last-of-type {
 border-bottom: 2px solid #009879;
+}
+
+/* --- ANIMATION --- */
+
+.stats-table-top .button-minimize:hover {
+    background-color: var(--clr-third);
+}
+
+.stats-table-top .button-delete:hover {
+    background-color: var(--clr-danger);
+}
+
+
+.stats-table-top .button-minimize::before, 
+.stats-table-top .button-minimize::after {
+    content: attr(data-content);
+    transition: transform 200ms ease-in;
+}
+
+.stats-table-top .button-minimize.minimized::before {
+    transform: translateY(70%); 
+}
+
+.stats-table-top .button-minimize.minimized::after {
+    transform: translateY(-70%); 
+}
+
+.stats-table-top .button-minimize.extended::before {
+    transform: translateY(100%); 
+}
+
+.stats-table-top .button-minimize.extended::after {    
+    transform: translateY(-100%); 
+
+}
+
+.stats-table.minimized-table {
+    margin-bottom: calc(var(--row-count) * var(--row-padding) * -5.5);
 }

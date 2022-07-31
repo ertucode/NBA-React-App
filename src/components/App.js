@@ -42,6 +42,12 @@ function App() {
 		setDesiredPlayers((prevValue) => [...prevValue, undoPlayer]);
 	}
 
+	function handlePlayerForeverDelete(id) {
+		setPastDesiredPlayers((prev) =>
+			[...prev].filter((player) => player.id !== id)
+		);
+	}
+
 	return (
 		<div className="app-container">
 			<Navbar setDesiredPlayers={setDesiredPlayers} />
@@ -49,6 +55,7 @@ function App() {
 				<PlayerAnchorContainer
 					desiredPlayers={desiredPlayers}
 					pastDesiredPlayers={pastDesiredPlayers}
+					handlePlayerForeverDelete={handlePlayerForeverDelete}
 					handlePlayerUndo={handlePlayerUndo}
 				/>
 				<StatsTablesContainer

@@ -24,6 +24,10 @@ export default function Navbar({ setDesiredPlayers }) {
 				(player) => player.id === id
 			);
 
+			setTimeout(() => {
+				window.location.hash = "#" + newDesiredPlayer.fullName;
+			}, 400);
+
 			if (newDesiredPlayer == null) {
 				console.log(
 					"Something went wrong with finding player",

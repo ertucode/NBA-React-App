@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from "react";
-import getDesiredStats from "../../utils/getDesiredStats";
+import React, { useEffect, useState, useRef } from "react";
 import getUniqueId from "../../utils/getUniqueId";
 import TryAgain from "./TryAgain";
 
-const statCategoriesToShow = [
-	"games_played",
-	"fgm",
-	"fga",
-	"fg3m",
-	"fg3a",
-	"ftm",
-];
-
-export default function StatsTableStatsSection({ desiredPlayer }) {
+export default function StatsTableStatsSection({ desiredPlayer, minimized }) {
 	const [gettingStats, setGettingStats] = useState(true);
 	const [gettingStatsFailed, setGettingStatsFailed] = useState(false);
+	const [statRows, setStatRows] = useState([]);
+	const tableRef = useRef();
 
 	function handleGettingStatsFailed() {
 		return (
@@ -44,18 +36,24 @@ export default function StatsTableStatsSection({ desiredPlayer }) {
 	}, [desiredPlayer]);
 
 	function loadBody() {
-		const rows = [];
+		if (!statRows.length > 0) {
+			// const newRows = [];
+			// const desiredStats = getDesiredStats(
+			// 	statCategoriesToShow,
+			// 	desiredPlayer.seasonStats
+			// );
 
-		const desiredStats = getDesiredStats(
-			statCategoriesToShow,
-			desiredPlayer.seasonStats
-		);
-
-		for (const [season, seasonStat] of Object.entries(desiredStats)) {
-			rows.push([season, ...Object.values(seasonStat)]);
+			// for (const [season, seasonStat] of Object.entries(desiredStats)) {
+			// 	newRows.push([season, ...Object.values(seasonStat)]);
+			// }
+			tableRef.current.style.setProperty(
+				"--row-count",
+				desiredPlayer.seasonStats.length
+			);
+			setStatRows(desiredPlayer.seasonStats.rows);
 		}
 
-		return rows.map((row) => {
+		return statRows.map((row) => {
 			return (
 				<tr key={getUniqueId()}>
 					{row.map((val) => {
@@ -67,22 +65,30 @@ export default function StatsTableStatsSection({ desiredPlayer }) {
 	}
 
 	return (
-		<table className="stats-table">
-			<thead>
-				<tr>
-					<th>Season</th>
-					{statCategoriesToShow.map((stat) => {
-						return <th key={getUniqueId()}>{stat}</th>;
-					})}
-				</tr>
-			</thead>
-			<tbody>
-				{gettingStats
-					? handleLoading()
-					: gettingStatsFailed
-					? handleGettingStatsFailed()
-					: loadBody()}
-			</tbody>
+		<table
+			className={`stats-table ${minimized ? "minimized-table" : ""}`}
+			ref={tableRef}
+		>
+			{desiredPlayer.gotStats && (
+				<>
+					<thead>
+						<tr>
+							{desiredPlayer.seasonStats.columnNames.map(
+								(stat) => {
+									return <th key={getUniqueId()}>{stat}</th>;
+								}
+							)}
+						</tr>
+					</thead>
+					<tbody>
+						{gettingStats
+							? handleLoading()
+							: gettingStatsFailed
+							? handleGettingStatsFailed()
+							: loadBody()}
+					</tbody>
+				</>
+			)}
 		</table>
 	);
 }
