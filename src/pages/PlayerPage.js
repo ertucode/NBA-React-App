@@ -1,12 +1,13 @@
 import "../css/app.css";
 import React, { useState } from "react";
-import Navbar from "./Navbar.js";
-import StatsTablesContainer from "./stats_compare/StatsTablesContainer";
-import PlayerAnchorContainer from "./stats_compare/PlayerAnchorContainer";
+import StatsTablesContainer from "../components/stats_compare/StatsTablesContainer";
+import PlayerAnchorContainer from "../components/stats_compare/PlayerAnchorContainer";
 import removePlayerFromArrayWithId from "../utils/removePlayerFromArrayWithId";
 import removeElementFromArrayWithIndex from "../utils/removeElementFromArrayWithIndex";
+import TextInputField from "../components/search_box/TextInputField";
+import Navbar from "../components/Navbar";
 
-function App() {
+function PlayerPage() {
 	const [desiredPlayers, setDesiredPlayers] = useState([]);
 	const [pastDesiredPlayers, setPastDesiredPlayers] = useState([]);
 
@@ -49,22 +50,25 @@ function App() {
 	}
 
 	return (
-		<div className="app-container">
-			<Navbar setDesiredPlayers={setDesiredPlayers} />
-			<main>
-				<PlayerAnchorContainer
-					desiredPlayers={desiredPlayers}
-					pastDesiredPlayers={pastDesiredPlayers}
-					handlePlayerForeverDelete={handlePlayerForeverDelete}
-					handlePlayerUndo={handlePlayerUndo}
-				/>
-				<StatsTablesContainer
-					desiredPlayers={desiredPlayers}
-					handlePlayerRemove={handlePlayerRemove}
-				/>
-			</main>
-		</div>
+		<>
+			<Navbar />
+			<div className="app-container">
+				<TextInputField setDesiredPlayers={setDesiredPlayers} />
+				<main>
+					<PlayerAnchorContainer
+						desiredPlayers={desiredPlayers}
+						pastDesiredPlayers={pastDesiredPlayers}
+						handlePlayerForeverDelete={handlePlayerForeverDelete}
+						handlePlayerUndo={handlePlayerUndo}
+					/>
+					<StatsTablesContainer
+						desiredPlayers={desiredPlayers}
+						handlePlayerRemove={handlePlayerRemove}
+					/>
+				</main>
+			</div>
+		</>
 	);
 }
 
-export default App;
+export default PlayerPage;

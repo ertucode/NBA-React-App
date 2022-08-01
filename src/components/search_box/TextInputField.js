@@ -1,15 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
 import DropdownMenu from "./DropdownMenu";
 
-export default function TextInputField({
-	handleInputChange,
-	handleOptionClick,
-	searchedPlayers,
-	inputsAreDifferent,
-}) {
+import getPlayersOfCount from "../../utils/getPlayersOfCount";
+import useDebounce from "../../utils/useDebounce";
+import Player from "../../utils/Player";
+
+export default function TextInputField({ setDesiredPlayers }) {
 	const inputRef = useRef();
 
 	const [showDropdown, setShowDropdown] = useState(false);
+	const [playerSearchTerm, setPlayerSearchTerm] = useState();
+	const debouncedPlayerSearchTerm = useDebounce(playerSearchTerm, 500);
+	const [inputsAreDifferent, setInputsAreDifferent] = useState(false);
+	const [searchedPlayers, setSearchedPlayers] = useState([]);
 
 	useEffect(() => {
 		inputRef.current.parentNode.classList.toggle(
@@ -17,6 +20,52 @@ export default function TextInputField({
 			inputsAreDifferent
 		);
 	}, [inputsAreDifferent]);
+
+	useEffect(() => {
+		getPlayersOfCount(debouncedPlayerSearchTerm, 10).then((newPlayers) => {
+			setSearchedPlayers(() =>
+				newPlayers.map((playerData) => new Player(playerData))
+			);
+		});
+	}, [debouncedPlayerSearchTerm]);
+
+	function handleOptionClick(id) {
+		setDesiredPlayers((prevDesiredPlayers) => {
+			const newDesiredPlayer = searchedPlayers.find(
+				(player) => player.id === id
+			);
+
+			setTimeout(() => {
+				window.location.hash = "#" + newDesiredPlayer.fullName;
+			}, 400);
+
+			if (newDesiredPlayer == null) {
+				console.log(
+					"Something went wrong with finding player",
+					searchedPlayers,
+					id
+				);
+				return prevDesiredPlayers;
+			}
+
+			if (
+				prevDesiredPlayers.find(
+					(prevDesiredPlayer) =>
+						prevDesiredPlayer.id === newDesiredPlayer.id
+				)
+			) {
+				console.log("Same player exits");
+				return prevDesiredPlayers;
+			}
+
+			setSearchedPlayers([]);
+			return [...prevDesiredPlayers, newDesiredPlayer];
+		});
+	}
+
+	useEffect(() => {
+		setInputsAreDifferent(playerSearchTerm !== debouncedPlayerSearchTerm);
+	}, [playerSearchTerm, debouncedPlayerSearchTerm]);
 
 	return (
 		<>
@@ -29,7 +78,7 @@ export default function TextInputField({
 								: ""
 						}
 						onChange={(e) => {
-							handleInputChange(inputRef.current.value);
+							setPlayerSearchTerm(inputRef.current.value);
 						}}
 						ref={inputRef}
 						onFocus={() => setShowDropdown(true)}
