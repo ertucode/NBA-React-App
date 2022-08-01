@@ -3,6 +3,7 @@ import { PRIORITY_ORDER } from "./statMap";
 
 export default class Table {
 	#rows = [];
+	#lastSorted = {};
 
 	constructor(
 		obj,
@@ -44,21 +45,37 @@ export default class Table {
 		return this.#rows.slice(1);
 	}
 
-	sortColumnItems(key) {
+	sortColumnItems(key, setUpdatingTable) {
+		if (this.length < 2) {
+			setUpdatingTable(false);
+			return;
+		}
+
+		// Change order if the column is the last ordered
+		const reverseOrder =
+			this.#lastSorted?.key === key
+				? this.#lastSorted.reverseOrder * -1
+				: 1;
+		this.#lastSorted = { key, reverseOrder };
+
 		// Reorder rows according to the key given, a particular column
 		// Change rowNap
-		const columnIndex = this.rows[0].findIndex(
-			(colName) => colName === key
-		);
+		const columnIndex = this.getColumnIndex(key);
+
 		const number = typeof this.rows[1][columnIndex] === "number";
 
 		const compareFunc = number ? integerCompare : stringCompare;
 
-		this.rows.sort((row1, row2) => {
+		const headers = this.#rows.shift();
+
+		this.#rows.sort((row1, row2) => {
 			const a = row1[columnIndex];
 			const b = row2[columnIndex];
-			return compareFunc(a, b);
+			return reverseOrder * compareFunc(a, b);
 		});
+
+		this.#rows.unshift(headers);
+		setTimeout(() => setUpdatingTable(false), 0);
 	}
 
 	print() {
@@ -112,9 +129,7 @@ export default class Table {
 }
 
 function stringCompare(a, b) {
-	a = a.toUpperCase();
-	b = b.toUpperCase();
-	integerCompare(a, b);
+	return a.localeCompare(b);
 }
 
 function integerCompare(a, b) {

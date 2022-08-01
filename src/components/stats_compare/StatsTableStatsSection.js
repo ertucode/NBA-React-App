@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import getUniqueId from "../../utils/getUniqueId";
 import TryAgain from "./TryAgain";
+import { DESCRIPTION_MAP } from "../../utils/statMap";
 
 export default function StatsTableStatsSection({ desiredPlayer, minimized }) {
 	const [gettingStats, setGettingStats] = useState(true);
 	const [gettingStatsFailed, setGettingStatsFailed] = useState(false);
-	const [statRows, setStatRows] = useState([]);
+	const [updatingTable, setUpdatingTable] = useState(false);
+	const [clickedRows, setClickedRows] = useState([]);
 	const tableRef = useRef();
 
 	function handleGettingStatsFailed() {
@@ -29,6 +31,34 @@ export default function StatsTableStatsSection({ desiredPlayer, minimized }) {
 		);
 	}
 
+	function handleRowClick(rowKey) {
+		if (clickedRows.includes(rowKey)) {
+			setClickedRows((prev) => [...prev].filter((row) => row !== rowKey));
+			return;
+		}
+		const prevRows = [...clickedRows];
+		if (prevRows.length > 1) {
+			prevRows.pop();
+		}
+		prevRows.push(rowKey);
+		setClickedRows(prevRows);
+	}
+
+	function handleRowHighlight(rowKey) {
+		if (clickedRows.length < 2) {
+			return clickedRows.includes(rowKey)
+				? { backgroundColor: "hsl(2, 50%, 80%)" }
+				: {};
+		} else {
+			const compareArray = [...clickedRows, rowKey];
+			compareArray.sort();
+			if (compareArray[1] === rowKey) {
+				return { backgroundColor: "hsl(2, 50%, 80%)" };
+			}
+			return {};
+		}
+	}
+
 	useEffect(() => {
 		if (!desiredPlayer.gotStats)
 			desiredPlayer.getStats(setGettingStats, setGettingStatsFailed);
@@ -36,26 +66,20 @@ export default function StatsTableStatsSection({ desiredPlayer, minimized }) {
 	}, [desiredPlayer]);
 
 	function loadBody() {
-		if (!statRows.length > 0) {
-			// const newRows = [];
-			// const desiredStats = getDesiredStats(
-			// 	statCategoriesToShow,
-			// 	desiredPlayer.seasonStats
-			// );
+		if (!desiredPlayer.gotStats) return;
+		tableRef.current.style.setProperty(
+			"--row-count",
+			desiredPlayer.seasonStats.length
+		);
 
-			// for (const [season, seasonStat] of Object.entries(desiredStats)) {
-			// 	newRows.push([season, ...Object.values(seasonStat)]);
-			// }
-			tableRef.current.style.setProperty(
-				"--row-count",
-				desiredPlayer.seasonStats.length
-			);
-			setStatRows(desiredPlayer.seasonStats.rows);
-		}
-
-		return statRows.map((row) => {
+		return desiredPlayer.seasonStats.rows.map((row) => {
 			return (
-				<tr key={getUniqueId()}>
+				<tr
+					key={getUniqueId()}
+					className="stats-table__stat--row"
+					style={handleRowHighlight(row[0])}
+					onClick={() => handleRowClick(row[0])}
+				>
 					{row.map((val) => {
 						return <td key={getUniqueId()}>{val}</td>;
 					})}
@@ -64,9 +88,18 @@ export default function StatsTableStatsSection({ desiredPlayer, minimized }) {
 		});
 	}
 
+	function handleColumnSort(stat) {
+		setUpdatingTable(true);
+		desiredPlayer.seasonStats.sortColumnItems(stat, setUpdatingTable);
+	}
+
 	return (
 		<table
-			className={`stats-table ${minimized ? "minimized-table" : ""}`}
+			className={`stats-table ${minimized ? "minimized-table" : ""} ${
+				gettingStats || updatingTable
+					? "stats-table__getting-stats"
+					: ""
+			}`}
 			ref={tableRef}
 		>
 			{desiredPlayer.gotStats && (
@@ -75,7 +108,18 @@ export default function StatsTableStatsSection({ desiredPlayer, minimized }) {
 						<tr>
 							{desiredPlayer.seasonStats.columnNames.map(
 								(stat) => {
-									return <th key={getUniqueId()}>{stat}</th>;
+									return (
+										<th
+											className="stats-table__data--header"
+											title={DESCRIPTION_MAP[stat]}
+											onClick={() => {
+												handleColumnSort(stat);
+											}}
+											key={getUniqueId()}
+										>
+											{stat}
+										</th>
+									);
 								}
 							)}
 						</tr>

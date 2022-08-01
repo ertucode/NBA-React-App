@@ -38,6 +38,7 @@
     transition: margin  250ms linear;
 
     --row-padding: .4rem;
+    position: relative;
 }
 
 /* --- TOP SECTION--- */
@@ -140,4 +141,38 @@ border-bottom: 2px solid #009879;
 
 .stats-table.minimized-table {
     margin-bottom: calc(var(--row-count) * var(--row-padding) * -5.5);
+}
+
+.stats-table__getting-stats {
+    overflow-x: hidden;
+}
+
+.stats-table__getting-stats::after {
+    content: "";
+    position: absolute;
+    left: 10%;
+    bottom: -3px;
+    height: 3px;
+    width: 80%;
+    background-image: linear-gradient(to right,yellow, green, blue, red);
+    animation: loading 2s infinite alternate;
+}
+
+@keyframes loading {
+    0% {
+        transform: scaleX(0);
+    }
+
+    100% {
+        transform: scaleX(100%);
+    }
+}
+
+.stats-table__data--header {
+    cursor: pointer;
+}
+
+.stats-table .stats-table__stat--row:hover,
+.stats-table__clicked--row {
+    background-color: hsl(2, 50%, 80%);
 }
