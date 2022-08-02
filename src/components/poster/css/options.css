@@ -1,0 +1,46 @@
+#options-area {
+    background-color: var(--clr-fourth);
+    box-shadow: 0 0 5px var(--clr-third);
+}
+
+#options-area__stat-selections{
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .3rem;
+}
+
+#options-area__stat-selections button{
+    width: 3rem;
+    height: 1.5rem;
+    background-color: var(--clr-third);
+    color: var(--clr-fourth);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    font-weight: 700;
+}
+
+#options-area__stat-selections button.deactivated {
+    background-color: hsl(0, 0%, 83%);
+    color: var(--clr-fourth)
+}
+
+#options-area__stat-selections button:hover {
+    background-color: var(--clr-primary);
+}
+
+
+
+/* 
+#options-area__stat-selections button.deactivated::before{
+    position: absolute;
+    content: "";
+    width: 80%;
+    height: 2px;
+    left: 10%;
+    top: calc(50% - 2.5px);
+    background-color: var(--clr-primary);
+    transform: rotate(-20deg)
+} */

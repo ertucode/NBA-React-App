@@ -5,7 +5,6 @@ import PlayerAnchorContainer from "../components/stats_compare/PlayerAnchorConta
 import removePlayerFromArrayWithId from "../utils/removePlayerFromArrayWithId";
 import removeElementFromArrayWithIndex from "../utils/removeElementFromArrayWithIndex";
 import TextInputField from "../components/search_box/TextInputField";
-import Navbar from "../components/Navbar";
 
 function PlayerPage() {
 	const [desiredPlayers, setDesiredPlayers] = useState([]);
@@ -51,10 +50,9 @@ function PlayerPage() {
 
 	return (
 		<>
-			<Navbar />
 			<div className="app-container">
-				<TextInputField setDesiredPlayers={setDesiredPlayers} />
 				<main>
+					<TextInputField setDesiredPlayers={setDesiredPlayers} />
 					<PlayerAnchorContainer
 						desiredPlayers={desiredPlayers}
 						pastDesiredPlayers={pastDesiredPlayers}

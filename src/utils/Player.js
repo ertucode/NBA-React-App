@@ -53,7 +53,7 @@ export default class Player {
 
 				season -= 1;
 			} catch (err) {
-				setGettingStatsFailed(true);
+				CB(setGettingStatsFailed, true);
 				this.gettingStatsFailed = true;
 				break;
 			}
@@ -63,6 +63,10 @@ export default class Player {
 			this.seasonStats = new Table(this.fetchedStats);
 		}
 
-		setGettingStats(false);
+		CB(setGettingStats, false);
 	}
+}
+
+function CB(cb, ...args) {
+	if (cb != null) cb(args);
 }

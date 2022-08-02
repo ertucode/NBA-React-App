@@ -1,13 +1,23 @@
 import { Routes, Route } from "react-router-dom";
-import PlayerPage from "./pages/PlayerPage";
 import LandingPage from "./pages/LandingPage";
+import PlayerPage from "./pages/PlayerPage";
+import PlayerPosterPage from "./pages/PlayerPosterPage";
+import Navbar from "./components/Navbar";
+
+/**IDEAS
+ * Add graphs
+ */
 
 function App() {
 	return (
-		<Routes>
-			<Route path="/" element={<LandingPage />} />
-			<Route path="/player" element={<PlayerPage />} />
-		</Routes>
+		<>
+			<Navbar />
+			<Routes>
+				<Route path="/" element={<LandingPage />} />
+				<Route path="/player" element={<PlayerPage />} />
+				<Route path="/poster" element={<PlayerPosterPage />} />
+			</Routes>
+		</>
 	);
 }
 

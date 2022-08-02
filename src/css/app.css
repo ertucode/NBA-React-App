@@ -6,6 +6,7 @@
 @import "table.css";
 @import "dropdown.css";
 @import "player-anchor.css";
+@import "landing-page.css";
 
 .app-container {
     display: flex;

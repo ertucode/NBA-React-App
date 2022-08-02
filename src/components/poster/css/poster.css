@@ -1,0 +1,23 @@
+@import "options.css";
+
+.poster-page__player-name-section {
+    cursor: pointer;
+}
+
+.poster-page__player-name-section:hover {
+    text-decoration: line-through;
+}
+
+.grow-shrink {
+    flex: 1 1;
+}
+
+* {
+    min-width: 0;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
