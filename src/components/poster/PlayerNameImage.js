@@ -24,7 +24,7 @@ export default function PlayerNameImage({ style, index }) {
 			) : (
 				<PlayerNameSection index={index} />
 			)}
-			<PlayerImage />
+			<PlayerImage index={index} />
 		</div>
 	);
 }

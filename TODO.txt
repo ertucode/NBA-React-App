@@ -1,0 +1,8 @@
+Add stat reorganization
+Add media queries
+Make the editor an openable item
+Better styles
+Poster width height ?
+Combine titles?
+Add to storage
+Get player images from api

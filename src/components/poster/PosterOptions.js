@@ -2,12 +2,15 @@ import React, { useContext, useEffect } from "react";
 import { PosterContext } from "../../pages/PlayerPosterPage";
 import ColorPicker from "./ColorPicker";
 import FontWeightPicker from "./FontWeightPicker";
+import FontSizePicker from "./FontSizePicker";
+import ImageResizer from "./ImageResizer";
 
 const posterOptionsStyle = {
 	display: "flex",
 	flexDirection: "column",
 	padding: "1rem",
 	width: "100%",
+	zIndex: 1,
 };
 
 export default function PosterOptions({ setOptions }) {
@@ -52,6 +55,12 @@ export default function PosterOptions({ setOptions }) {
 			</div>
 			<div id="options-area__font-weight-selections">
 				<FontWeightPicker />
+			</div>
+			<div id="options-area__font-size-selections">
+				<FontSizePicker />
+			</div>
+			<div id="options-area__image-handler">
+				<ImageResizer />
 			</div>
 		</div>
 	);

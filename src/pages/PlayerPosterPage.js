@@ -17,18 +17,47 @@ const initialOptions = {
 const initialTextState = {
 	playerName: {
 		label: "Player Name",
-		style: { color: "#ff0000", fontWeight: "700" },
+		style: { color: "#000000", fontWeight: "700", fontSize: "3rem" },
 	},
 	statName: {
 		label: "Stat Name",
-		style: { color: "#00ffff", fontWeight: "700" },
+		style: { color: "#000000", fontWeight: "700", fontSize: "2rem" },
 	},
 	statNumber: {
 		label: "Stat Number",
-		style: { color: "#000000", fontWeight: "700" },
+		style: { color: "#000000", fontWeight: "700", fontSize: "1.5rem" },
 	},
-	bg: { label: "Background", style: { color: "#eeeeee" } },
+	bg: { label: "Background", style: { color: "#ffffff" } },
 };
+
+const initialTransformStates = [
+	{
+		translateX: { value: 0, min: -100, max: 100, step: 1 },
+		translateY: { value: 0, min: -100, max: 100, step: 1 },
+		scale: { value: 1, min: 0, max: 10, step: 0.01 },
+	},
+	{
+		translateX: { value: 0, min: -100, max: 100, step: 1 },
+		translateY: { value: 0, min: -100, max: 100, step: 1 },
+		scale: { value: 1, min: 0, max: 5, step: 0.001 },
+	},
+];
+
+const initialImageSources = [
+	{ id: 0, src: null },
+	{ id: 1, src: null },
+];
+
+const initialShadowStyles = [
+	{
+		th: 0,
+		color: "#000000",
+	},
+	{
+		th: 0,
+		color: "#000000",
+	},
+];
 
 export const PosterContext = React.createContext();
 
@@ -45,6 +74,11 @@ export default function PlayerPosterPage() {
 	const [gettingStats, setGettingStats] = useState(false);
 	const [gettingStatsFailed, setGettingStatsFailed] = useState(false);
 	const [textState, setTextState] = useState(initialTextState);
+	const [imageTransforms, setImageTransforms] = useState(
+		initialTransformStates
+	);
+	const [imageSources, setImageSources] = useState(initialImageSources);
+	const [shadowStyles, setShadowStyles] = useState(initialShadowStyles);
 
 	const posterContextValue = {
 		players,
@@ -56,6 +90,12 @@ export default function PlayerPosterPage() {
 		setGettingStatsFailed,
 		textState,
 		setTextState,
+		imageTransforms,
+		setImageTransforms,
+		imageSources,
+		setImageSources,
+		shadowStyles,
+		setShadowStyles,
 	};
 
 	return (

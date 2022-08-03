@@ -6,7 +6,7 @@ const playerNameStyle = {
 	top: "5%",
 	left: "50%",
 	transform: "translateX(-50%)",
-	zIndex: 1,
+	zIndex: 5,
 };
 
 export default function PlayerNameSection({ index }) {

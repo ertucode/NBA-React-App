@@ -8,6 +8,9 @@ const posterResizableStyle = {
 	margin: "1rem 2rem",
 	boxShadow: "0 0 10px var(--clr-third)",
 	backgroundColor: "#f8f8f8",
+	minHeight: "450px",
+	minWidth: "600px",
+	overflow: "hidden",
 };
 
 export default function PosterArea() {
@@ -15,6 +18,7 @@ export default function PosterArea() {
 
 	return (
 		<div
+			className="poster-area"
 			style={{
 				...posterResizableStyle,
 				backgroundColor: textState.bg.style.color,

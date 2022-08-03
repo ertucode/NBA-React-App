@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PosterContext } from "../../pages/PlayerPosterPage";
 import getTrues from "../../utils/getTrues";
-import PosterWarningItem from "./PosterWarningItem";
+import {
+	useNotification,
+	NOTIFICATION_TYPES,
+} from "../_general/Notification/NotificationProvider";
 
 const statDisplayerStyles = {
 	display: "grid",
-	gridTemplateColumns: "1fr 1fr 1fr",
+	gridTemplateColumns: "1fr 1.4fr 1fr",
 	alignItems: "center",
 };
 
@@ -13,6 +16,7 @@ const spanStyles = {
 	textAlign: "center",
 	fontWeight: 700,
 	color: "hsl(360, 100%, 30%)",
+	zIndex: 5,
 };
 
 const statNameStyles = {
@@ -28,9 +32,16 @@ const middlePanelStyles = {
 
 export default function StatDisplayer() {
 	const [averageStats, setAverageStats] = useState([{}, {}]);
+	const dispatch = useNotification();
 
-	const { options, players, gettingStats, gettingStatsFailed, textState } =
-		useContext(PosterContext);
+	const {
+		options,
+		players,
+		gettingStats,
+		gettingStatsFailed,
+		setGettingStatsFailed,
+		textState,
+	} = useContext(PosterContext);
 
 	useEffect(() => {
 		const stats = getTrues(options.desiredStats);
@@ -45,6 +56,18 @@ export default function StatDisplayer() {
 		setAverageStats(newAverageStats);
 	}, [options, players, gettingStats]);
 
+	useEffect(() => {
+		if (gettingStatsFailed) {
+			dispatch({
+				message: "Getting stats failed (Too many requests)",
+				time: 3000,
+				location: "bottom-left",
+				type: NOTIFICATION_TYPES.ERROR,
+			});
+		}
+		setGettingStatsFailed(false);
+	}, [gettingStatsFailed, dispatch, setGettingStatsFailed]);
+
 	const addedSpanClass = gettingStats ? "poster-loading" : "";
 
 	return (
@@ -56,11 +79,12 @@ export default function StatDisplayer() {
 							style={{
 								...spanStyles,
 								...textState.statNumber.style,
+								textAlign: "left",
 							}}
 							key={stat + "0"}
 							className={addedSpanClass}
 						>
-							{getOneDecimal(averageStats[0][stat])}
+							{getTwoDecimal(averageStats[0][stat])}
 						</span>
 						<span
 							style={{
@@ -76,21 +100,21 @@ export default function StatDisplayer() {
 							style={{
 								...spanStyles,
 								...textState.statNumber.style,
+								textAlign: "right",
 							}}
 							key={stat + "2"}
 							className={addedSpanClass}
 						>
-							{getOneDecimal(averageStats[1][stat])}
+							{getTwoDecimal(averageStats[1][stat])}
 						</span>
 					</div>
 				))}
-				{gettingStatsFailed && <PosterWarningItem />}
 			</div>
 		</>
 	);
 }
 
-function getOneDecimal(num) {
+function getTwoDecimal(num) {
 	if (typeof num !== "number") return "...";
-	return Math.round(num * 10) / 10;
+	return Math.round(num * 100) / 100;
 }

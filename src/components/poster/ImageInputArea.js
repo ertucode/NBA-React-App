@@ -11,6 +11,7 @@ const dropAreaStyle = {
 	aspectRatio: 1,
 	margin: "auto",
 	flexDirection: "column",
+	zIndex: 5,
 };
 
 export default function ImageInputArea({ setImgSrc }) {
@@ -54,6 +55,7 @@ export default function ImageInputArea({ setImgSrc }) {
 			className="flex-center"
 		>
 			<div className="drag-and-drop">Drag and drop your Image</div>
+			<div>or</div>
 			<FileInputButton fileCallback={loadImage} />
 		</div>
 	);

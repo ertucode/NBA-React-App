@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./notification.css";
 
-import { ReactComponent as Success } from "./svg/success.svg";
+import { ReactComponent as SuccessSvg } from "./svg/success.svg";
+import { ReactComponent as ErrorSvg } from "./svg/fail.svg";
 
 export const NOTIFICATION_TYPES = {
 	SUCCESS: "success",
@@ -64,6 +65,21 @@ export default function Notification({ dispatch, notification, location }) {
 		}
 	}, [width, handleCloseNotification]);
 
+	function loadSvg(type) {
+		switch (type) {
+			case NOTIFICATION_TYPES.SUCCESS:
+				return (
+					<SuccessSvg fill="white" stroke="green" strokeWidth="0" />
+				);
+			case NOTIFICATION_TYPES.ERROR:
+				return <ErrorSvg fill="white" stroke="red" strokeWidth="0" />;
+			default:
+				return (
+					<SuccessSvg fill="white" stroke="green" strokeWidth="0" />
+				);
+		}
+	}
+
 	return (
 		<div
 			ref={itemRef}
@@ -73,7 +89,7 @@ export default function Notification({ dispatch, notification, location }) {
 			className={`notification-item ${notification.type}`}
 		>
 			<p style={notification.style?.card || {}}>
-				<Success fill="white" stroke="green" strokeWidth="0" />
+				{loadSvg(notification.type)}
 				{notification.message}
 			</p>
 
