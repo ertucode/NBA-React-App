@@ -8,6 +8,11 @@ import Player from "../../utils/Player";
 
 const textInputFieldStyle = {
 	margin: "auto",
+	position: "absolute",
+	top: "5%",
+	left: "50%",
+	transform: "translateX(-50%)",
+	zIndex: 1,
 };
 
 export default function TextInputField({ index }) {

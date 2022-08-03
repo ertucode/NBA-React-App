@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import ImageInputArea from "./ImageInputArea";
 
 const playerImageCardStyle = {
-	gridRow: "2 / 11",
-	flexGrow: 1,
+	gridRow: "3 / 11",
 };
 
-const playerImageStyle = {};
+const playerImageStyle = {
+	position: "absolute",
+};
 
 export default function PlayerImage() {
 	const [imgSrc, setImgSrc] = useState(null);

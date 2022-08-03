@@ -40,7 +40,7 @@ export const STAT_API_TO_ACTUAL_NAME_MAP = new BiMap({
 	oreb: "ORB",
 	pf: "PF",
 	pts: "PTS",
-	reb: "TRB",
+	reb: "REB",
 	stl: "STL",
 	turnover: "TO",
 });
@@ -59,7 +59,7 @@ export const PRIORITY_ORDER = [
 	"FT%",
 	"ORB",
 	"DRB",
-	"TRB",
+	"REB",
 	"AST",
 	"STL",
 	"BLK",
@@ -86,7 +86,7 @@ export const DESCRIPTION_MAP = {
 	ORB: "Offensive Rebounds Per Game",
 	PF: "Personal Fouls Per Game",
 	PTS: "Points Per Game",
-	TRB: "Total Rebounds Per Game",
+	REB: "Total Rebounds Per Game",
 	STL: "Steals Per Game",
 	TO: "Turnovers Per Game",
 };

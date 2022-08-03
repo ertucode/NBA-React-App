@@ -7,9 +7,10 @@ import PlayerNameSection from "./PlayerNameSection";
 const playerNameImageStyle = {
 	padding: "1rem",
 	display: "grid",
-	gridTemplateRows: "1fr 10fr",
+	gridTemplateRows: "repeat(11, 1fr)",
 	alignItems: "center",
 	flex: "1 1",
+	position: "relative",
 };
 
 export default function PlayerNameImage({ style, index }) {

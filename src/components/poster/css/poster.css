@@ -21,3 +21,16 @@
     justify-content: center;
     align-items: center;
 }
+
+.poster-loading {
+    animation: animate-opacity 3s infinite ease-in-out;
+}
+
+@keyframes animate-opacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

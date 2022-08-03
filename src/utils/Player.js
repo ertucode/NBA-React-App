@@ -61,12 +61,48 @@ export default class Player {
 
 		if (!this.gettingStatsFailed) {
 			this.seasonStats = new Table(this.fetchedStats);
+			this.minSeason = this.seasonStats.rows[0][0];
+			this.maxSeason = this.seasonStats.rows.at(-1)[0];
 		}
 
 		CB(setGettingStats, false);
 	}
+
+	getSeasonAverages(stats, min = this.minSeason, max = this.maxSeason) {
+		// return {FG: 25}
+		if (!this.gotStats) return {};
+
+		const averages = {};
+		const minIndex = min - this.minSeason;
+		const maxIndex = max - this.minSeason;
+
+		stats.forEach((stat) => {
+			const statColumn = this.seasonStats.getColumn(
+				stat,
+				minIndex,
+				maxIndex + 1
+			);
+			if (stat === "MP") {
+				const averageTimeSec = getAverageFromArray(
+					statColumn.map((time) => {
+						const [min, sec] = time.split(":");
+						return parseInt(min) * 60 + parseInt(sec);
+					})
+				);
+				averages[stat] = averageTimeSec / 60;
+			} else {
+				averages[stat] = getAverageFromArray(statColumn);
+			}
+		});
+
+		return averages;
+	}
 }
 
 function CB(cb, ...args) {
-	if (cb != null) cb(args);
+	if (cb != null) cb(...args);
+}
+
+function getAverageFromArray(arr) {
+	return arr.reduce((prev, curr) => prev + curr, 0) / arr.length;
 }

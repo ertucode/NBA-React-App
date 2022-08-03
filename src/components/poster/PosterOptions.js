@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { PosterContext } from "../../pages/PlayerPosterPage";
-import { PRIORITY_ORDER } from "../../utils/statMap";
+import ColorPicker from "./ColorPicker";
+import FontWeightPicker from "./FontWeightPicker";
 
 const posterOptionsStyle = {
 	display: "flex",
@@ -10,15 +11,17 @@ const posterOptionsStyle = {
 };
 
 export default function PosterOptions({ setOptions }) {
-	const { players, options } = useContext(PosterContext);
+	const { players, options, setGettingStats, setGettingStatsFailed } =
+		useContext(PosterContext);
 
 	useEffect(() => {
 		players.forEach((player) => {
 			if (player != null && !player.gotStats) {
-				player.getStats();
+				setGettingStats(true);
+				player.getStats(setGettingStats, setGettingStatsFailed);
 			}
 		});
-	}, [players]);
+	}, [players, setGettingStats, setGettingStatsFailed]);
 
 	function handleStatClick(e, stat) {
 		const newOptions = { ...options };
@@ -28,19 +31,27 @@ export default function PosterOptions({ setOptions }) {
 
 	return (
 		<div style={posterOptionsStyle} id="options-area">
-			<div>Select stats to display</div>
-			<div id="options-area__stat-selections">
-				{Object.entries(options.desiredStats).map(
-					([stat, bool], index) => (
-						<button
-							key={index}
-							onClick={(e) => handleStatClick(e, stat)}
-							className={bool ? "" : "deactivated"}
-						>
-							{stat}
-						</button>
-					)
-				)}
+			<div id="options-area__stat-container">
+				<div>Select stats to display</div>
+				<div id="options-area__stat-selections">
+					{Object.entries(options.desiredStats).map(
+						([stat, bool], index) => (
+							<button
+								key={index}
+								onClick={(e) => handleStatClick(e, stat)}
+								className={bool ? "" : "deactivated"}
+							>
+								{stat}
+							</button>
+						)
+					)}
+				</div>
+			</div>
+			<div id="options-area__color-selections">
+				<ColorPicker />
+			</div>
+			<div id="options-area__font-weight-selections">
+				<FontWeightPicker />
 			</div>
 		</div>
 	);

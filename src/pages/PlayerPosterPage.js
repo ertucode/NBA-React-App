@@ -5,7 +5,7 @@ import { PRIORITY_ORDER } from "../utils/statMap";
 
 import "../components/poster/css/poster.css";
 
-const initialDesiredStats = ["PTS", "AST", "TRB"];
+const initialDesiredStats = ["PTS", "AST", "REB"];
 const initialOptions = {
 	desiredStats: Object.fromEntries(
 		PRIORITY_ORDER.map((stat) => [
@@ -13,6 +13,21 @@ const initialOptions = {
 			initialDesiredStats.includes(stat),
 		])
 	),
+};
+const initialTextState = {
+	playerName: {
+		label: "Player Name",
+		style: { color: "#ff0000", fontWeight: "700" },
+	},
+	statName: {
+		label: "Stat Name",
+		style: { color: "#00ffff", fontWeight: "700" },
+	},
+	statNumber: {
+		label: "Stat Number",
+		style: { color: "#000000", fontWeight: "700" },
+	},
+	bg: { label: "Background", style: { color: "#eeeeee" } },
 };
 
 export const PosterContext = React.createContext();
@@ -27,11 +42,20 @@ const posterPageStyle = {
 export default function PlayerPosterPage() {
 	const [players, setPlayers] = useState([null, null]);
 	const [options, setOptions] = useState(initialOptions);
+	const [gettingStats, setGettingStats] = useState(false);
+	const [gettingStatsFailed, setGettingStatsFailed] = useState(false);
+	const [textState, setTextState] = useState(initialTextState);
 
 	const posterContextValue = {
 		players,
 		setPlayers,
 		options,
+		gettingStats,
+		setGettingStats,
+		gettingStatsFailed,
+		setGettingStatsFailed,
+		textState,
+		setTextState,
 	};
 
 	return (

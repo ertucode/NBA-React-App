@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import PlayerNameImage from "./PlayerNameImage";
 import StatDisplayer from "./StatDisplayer";
+import { PosterContext } from "../../pages/PlayerPosterPage";
 
 const posterResizableStyle = {
 	display: "flex",
@@ -10,8 +11,15 @@ const posterResizableStyle = {
 };
 
 export default function PosterArea() {
+	const { textState } = useContext(PosterContext);
+
 	return (
-		<div style={posterResizableStyle}>
+		<div
+			style={{
+				...posterResizableStyle,
+				backgroundColor: textState.bg.style.color,
+			}}
+		>
 			<PlayerNameImage index={0} />
 			<StatDisplayer />
 			<PlayerNameImage index={1} />

@@ -17,7 +17,7 @@ export default class Table {
 		});
 
 		Object.entries(obj).forEach(([season, seasonData]) => {
-			this.#rows.push([season, ...Object.values(seasonData)]);
+			this.#rows.push([parseInt(season), ...Object.values(seasonData)]);
 		});
 
 		this.removeColumns("player_id", "season");
@@ -28,13 +28,13 @@ export default class Table {
 		return this.#rows.find((row) => row[0] === key);
 	}
 
-	getColumn(key) {
-		const columnIndex = this.columnMap[key];
-		return this.#rows.map((row) => row[columnIndex]);
+	getColumn(key, start = 0, end = this.dataLength) {
+		const columnIndex = this.getColumnIndex(key);
+		return this.rows.slice(start, end).map((row) => row[columnIndex]);
 	}
 
-	getColumns(keys) {
-		return keys.map((key) => this.getColumn(key));
+	getColumns(keys, start = 0, end = this.dataLength) {
+		return keys.map((key) => this.getColumn(key, start, end));
 	}
 
 	get columnNames() {
@@ -125,6 +125,10 @@ export default class Table {
 
 	get length() {
 		return this.rows.length;
+	}
+
+	get dataLength() {
+		return this.#rows[0].length;
 	}
 }
 
