@@ -1,0 +1,7 @@
+.image-resizer-container {
+    display: flex;
+}
+
+.image-field-set {
+    min-width: 7rem;
+}

@@ -14,32 +14,54 @@ const initialOptions = {
 		])
 	),
 };
-const initialTextState = {
+
+const initialFontStates = {
 	playerName: {
 		label: "Player Name",
-		style: { color: "#000000", fontWeight: "700", fontSize: "3rem" },
+		style: {
+			color: "#9999ff",
+			fontWeight: "700",
+			fontSize: "3rem",
+		},
 	},
 	statName: {
 		label: "Stat Name",
-		style: { color: "#000000", fontWeight: "700", fontSize: "2rem" },
+		style: {
+			color: "#444444",
+			fontWeight: "400",
+			fontSize: "1rem",
+		},
 	},
 	statNumber: {
 		label: "Stat Number",
-		style: { color: "#000000", fontWeight: "700", fontSize: "1.5rem" },
+		style: {
+			color: "#44ff44",
+			fontWeight: "700",
+			fontSize: "2rem",
+		},
 	},
-	bg: { label: "Background", style: { color: "#ffffff" } },
 };
+
+const initialBackgroundState = {
+	color: "#ffffff",
+	src: null,
+	size: "cover",
+};
+
+// transform
+// transparency
+// scale
 
 const initialTransformStates = [
 	{
-		translateX: { value: 0, min: -100, max: 100, step: 1 },
-		translateY: { value: 0, min: -100, max: 100, step: 1 },
-		scale: { value: 1, min: 0, max: 10, step: 0.01 },
+		translateX: { label: "X", value: 0, min: -100, max: 100, step: 1 },
+		translateY: { label: "Y", value: 0, min: -100, max: 100, step: 1 },
+		scale: { label: "Scale", value: 1, min: 0, max: 10, step: 0.01 },
 	},
 	{
-		translateX: { value: 0, min: -100, max: 100, step: 1 },
-		translateY: { value: 0, min: -100, max: 100, step: 1 },
-		scale: { value: 1, min: 0, max: 5, step: 0.001 },
+		translateX: { label: "X", value: 0, min: -100, max: 100, step: 1 },
+		translateY: { label: "Y", value: 0, min: -100, max: 100, step: 1 },
+		scale: { label: "Scale", value: 1, min: 0, max: 5, step: 0.001 },
 	},
 ];
 
@@ -73,9 +95,12 @@ export default function PlayerPosterPage() {
 	const [options, setOptions] = useState(initialOptions);
 	const [gettingStats, setGettingStats] = useState(false);
 	const [gettingStatsFailed, setGettingStatsFailed] = useState(false);
-	const [textState, setTextState] = useState(initialTextState);
 	const [imageTransforms, setImageTransforms] = useState(
 		initialTransformStates
+	);
+	const [fontState, setFontState] = useState(initialFontStates);
+	const [backgroundState, setBackgroundState] = useState(
+		initialBackgroundState
 	);
 	const [imageSources, setImageSources] = useState(initialImageSources);
 	const [shadowStyles, setShadowStyles] = useState(initialShadowStyles);
@@ -88,14 +113,16 @@ export default function PlayerPosterPage() {
 		setGettingStats,
 		gettingStatsFailed,
 		setGettingStatsFailed,
-		textState,
-		setTextState,
 		imageTransforms,
 		setImageTransforms,
 		imageSources,
 		setImageSources,
 		shadowStyles,
 		setShadowStyles,
+		fontState,
+		setFontState,
+		backgroundState,
+		setBackgroundState,
 	};
 
 	return (

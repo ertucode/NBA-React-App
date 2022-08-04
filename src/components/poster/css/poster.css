@@ -1,6 +1,9 @@
 @import "options.css";
 @import "player-name.css";
 @import "utilities.css";
+@import "font-handler.css";
+@import "image-resizer.css";
+@import "background-picker.css";
 
 .poster-page__player-name-section {
     cursor: pointer;

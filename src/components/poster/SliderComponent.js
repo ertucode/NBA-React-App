@@ -15,6 +15,7 @@ export default function SliderComponent({ props }) {
 			<input
 				id={id}
 				type="range"
+				className="image-resizer-slider"
 				min={min}
 				max={max}
 				step={step}

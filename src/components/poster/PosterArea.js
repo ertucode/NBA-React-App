@@ -12,14 +12,17 @@ const posterResizableStyle = {
 };
 
 export default function PosterArea() {
-	const { textState } = useContext(PosterContext);
+	const { backgroundState } = useContext(PosterContext);
 
 	return (
 		<div
 			className="poster-area"
 			style={{
 				...posterResizableStyle,
-				backgroundColor: textState.bg.style.color,
+				backgroundColor: backgroundState.color,
+				backgroundImage: `url(${backgroundState.src})`,
+				backgroundSize: backgroundState.size,
+				backgroundRepeat: "no-repeat",
 			}}
 		>
 			<PlayerNameImage index={0} />

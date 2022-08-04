@@ -21,7 +21,7 @@ export default function StatDisplayer() {
 		gettingStats,
 		gettingStatsFailed,
 		setGettingStatsFailed,
-		textState,
+		fontState,
 	} = useContext(PosterContext);
 
 	useEffect(() => {
@@ -58,7 +58,7 @@ export default function StatDisplayer() {
 					<div key={stat} className="stat-individual">
 						<span
 							style={{
-								...textState.statNumber.style,
+								...fontState.statNumber.style,
 							}}
 							key={stat + "0"}
 							className={` stat-span ${addedSpanClass}`}
@@ -68,7 +68,7 @@ export default function StatDisplayer() {
 						<span
 							style={{
 								...statNameStyles,
-								...textState.statName.style,
+								...fontState.statName.style,
 							}}
 							className="stat-span"
 							key={stat + "1"}
@@ -77,7 +77,7 @@ export default function StatDisplayer() {
 						</span>
 						<span
 							style={{
-								...textState.statNumber.style,
+								...fontState.statNumber.style,
 							}}
 							key={stat + "2"}
 							className={` stat-span ${addedSpanClass}`}

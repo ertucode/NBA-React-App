@@ -1,28 +1,30 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import { PosterContext } from "../../pages/PlayerPosterPage";
-import ColorPicker from "./ColorPicker";
-import FontWeightPicker from "./FontWeightPicker";
-import FontSizePicker from "./FontSizePicker";
 import ImageResizer from "./ImageResizer";
 
 import { ReactComponent as StatSvg } from "./svg/stat1.svg";
 import { ReactComponent as FontSvg } from "./svg/font1.svg";
 import { ReactComponent as ColorSvg } from "./svg/color1.svg";
 import { ReactComponent as ImageSvg } from "./svg/image1.svg";
+import FontHandler from "./FontHandler";
+import BackgroundPicker from "./BackgroundPicker";
 
-const posterOptionsStyle = {
-	display: "flex",
-	flexDirection: "column",
-	padding: "1rem",
-	zIndex: 10,
-	position: "fixed",
-	top: "50%",
-	transform: "translateY(-50%)",
-};
+function handleSvgHover(state, action) {
+	const newState = { ...state };
+	newState[action.key] = action.isHovering;
+	return newState;
+}
 
 export default function PosterOptions({ setOptions }) {
 	const { players, options, setGettingStats, setGettingStatsFailed } =
 		useContext(PosterContext);
+
+	const [hoverState, dispatch] = useReducer(handleSvgHover, {
+		image: false,
+		stat: false,
+		color: false,
+		font: false,
+	});
 
 	useEffect(() => {
 		players.forEach((player) => {
@@ -40,61 +42,91 @@ export default function PosterOptions({ setOptions }) {
 	}
 
 	return (
-		<div style={posterOptionsStyle} id="options-area" tabIndex="0">
+		<div id="options-area" tabIndex="0">
 			<div
 				className="options-area__child"
 				id="options-area__stat-container"
+				onMouseEnter={() => dispatch({ key: "stat", isHovering: true })}
+				onMouseLeave={() =>
+					dispatch({ key: "stat", isHovering: false })
+				}
 			>
-				<StatSvg />
+				<div className="svg-container">
+					<StatSvg
+						fill={`${hoverState.stat ? "#ffffff" : "#000000"}`}
+					/>
+				</div>
 				<div className="option-popup">
-					<div>Select stats to display</div>
-					<div id="options-area__stat-selections">
-						{Object.entries(options.desiredStats).map(
-							([stat, bool], index) => (
-								<button
-									key={index}
-									onClick={(e) => handleStatClick(e, stat)}
-									className={bool ? "" : "deactivated"}
-								>
-									{stat}
-								</button>
-							)
-						)}
+					<div className="stat-container">
+						<div id="options-area__stat-selections">
+							{Object.entries(options.desiredStats).map(
+								([stat, bool], index) => (
+									<button
+										key={index}
+										onClick={(e) =>
+											handleStatClick(e, stat)
+										}
+										className={bool ? "" : "deactivated"}
+									>
+										{stat}
+									</button>
+								)
+							)}
+						</div>
 					</div>
 				</div>
 			</div>
 			<div
 				className="options-area__child"
 				id="options-area__color-selections"
+				onMouseEnter={() =>
+					dispatch({ key: "color", isHovering: true })
+				}
+				onMouseLeave={() =>
+					dispatch({ key: "color", isHovering: false })
+				}
 			>
-				<ColorSvg />
+				<div className="svg-container">
+					<ColorSvg
+						fill={`${hoverState.color ? "#ffffff" : "#000000"}`}
+					/>
+				</div>
 				<div className="option-popup">
-					<ColorPicker />
+					<BackgroundPicker />
 				</div>
 			</div>
 			<div
 				className="options-area__child"
-				id="options-area__font-weight-selections"
+				id="options-area__font-handler"
+				onMouseEnter={() => dispatch({ key: "font", isHovering: true })}
+				onMouseLeave={() =>
+					dispatch({ key: "font", isHovering: false })
+				}
 			>
-				<FontSvg />
-				<div className="option-popup">
-					<FontWeightPicker />
+				<div className="svg-container">
+					<FontSvg
+						fill={`${hoverState.font ? "#ffffff" : "#000000"}`}
+					/>
 				</div>
-			</div>
-			<div
-				className="options-area__child"
-				id="options-area__font-size-selections"
-			>
-				<FontSvg />
 				<div className="option-popup">
-					<FontSizePicker />
+					<FontHandler />
 				</div>
 			</div>
 			<div
 				className="options-area__child"
 				id="options-area__image-handler"
+				onMouseEnter={() =>
+					dispatch({ key: "image", isHovering: true })
+				}
+				onMouseLeave={() =>
+					dispatch({ key: "image", isHovering: false })
+				}
 			>
-				<ImageSvg />
+				<div className="svg-container">
+					<ImageSvg
+						fill={`${hoverState.image ? "#ffffff" : "#000000"}`}
+					/>
+				</div>
 				<div className="option-popup">
 					<ImageResizer />
 				</div>

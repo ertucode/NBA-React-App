@@ -1,0 +1,56 @@
+.font-handler-container {
+    display: flex;
+    background-color: var(--clr-third);
+    font-size: .7rem;
+    padding: .5rem;
+    border-radius: 1rem;
+    --fs-width: 2rem;
+    
+}
+
+
+
+.font-handler-group-container {
+    display: flex;
+    column-gap: .2rem;
+    padding: .2rem;
+}
+
+.font-handler-group-container + .font-handler-group-container {
+    border-left: 1px solid rgba(255,255,255, 0.3)
+}
+
+.font-handler-label {
+    text-align: center;
+    text-decoration: underline;
+    color: var(--clr-fourth)
+}
+
+.font-handler-font-color {
+    width: var(--fs-width);
+    height: var(--fs-width);
+}
+
+.font-handler-font-weight {
+cursor: pointer;
+background-color: var(--clr-fourth);
+border: none;
+padding: .3rem .5rem;
+width: var(--fs-width);
+}
+.font-handler-font-size {
+    border: none;
+    padding: .3rem .5rem;
+    width: var(--fs-width);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -1,34 +1,121 @@
 #options-area {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem 0;
+    row-gap: .4rem;
+    z-index: 10;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+
     background-color: var(--clr-fourth);
     box-shadow: 0 0 5px var(--clr-third);
     cursor: pointer;
     width: 3rem;
     transition: width .15s ease-in;
     --width: 4rem;
-    --popup-offset: 2rem;
+    --popup-offset: 0rem;
+    --off: calc(var(--popup-offset) / 2);
 }
+
 
 
 #options-area:hover{
     width: var(--width);
 }
 
-#options-area__stat-selections{
-    padding: 1rem;
+
+
+.options-area__child {
+    position: relative;
+    /* aspect-ratio: 1 / 1;
+    margin: .5rem 0; */
+    cursor: pointer;
+}
+
+.options-area__child .option-popup {
+    display: none;
+    z-index: 15;
+}
+
+.options-area__child:hover .option-popup {
+    display: block;
+    position: absolute;
+    max-width: 20rem;
+    left: calc(100% + var(--popup-offset));
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.option-popup > *{
+    background-color: var(--clr-third);
+    font-size: .7rem;
+    padding: .5rem;
+    border-radius: 1rem;
+    color: var(--clr-fourth);
+}
+
+.options-area__child .svg-container {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.options-area__child .svg-container svg{
+    width: 50%;
+    aspect-ratio: 1 / 1;
+}
+
+.options-area__child:hover .svg-container {
+    background-color: var(--clr-third);
+    color: white;
+}
+
+/* .option-popup::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--width) - var(--popup-offset));
+    top: calc(50% - var(--width) / 2);
+    width: calc(var(--width) + var(--popup-offset));
+    height: var(--width);
+    background-color: red;
+} */
+
+/* .option-popup::before {
+    content: "";
+    position: absolute;
+    --size: 1rem;
+    left: calc(-1 * var(--size));
+    top: calc(50% - 1.2rem);
+    transform: translateY(-50%);
+    width: var(--size);
+    height: var(--size);
+    background-color: red;
+} */
+
+
+
+/****** STAT BUTTONS  ***/
+
+
+#options-area__stat-selections{
+    padding: .5rem;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
     gap: .3rem;
 }
 
 #options-area__stat-selections button{
-    width: 3rem;
-    height: 1.5rem;
-    background-color: var(--clr-third);
-    color: var(--clr-fourth);
+    width: 2.5rem;
+    height: 1.2rem;
+    background-color: var(--clr-fourth);
+    color: var(--clr-primary);
     border: none;
     border-radius: 3px;
     cursor: pointer;
     position: relative;
+    font-size: .7rem;
     font-weight: 700;
 }
 
@@ -38,39 +125,8 @@
 }
 
 #options-area__stat-selections button:hover {
-    background-color: var(--clr-primary);
+    outline: 2px solid var(--clr-primary);
+    animation: shake .1s;
 }
 
-.options-area__child {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    margin: .5rem 0;
-    cursor: pointer;
-}
 
-.options-area__child .option-popup {
-    display: none;
-    background-color: var(--clr-fourth);
-    border: var(--clr-primary) 2px solid;
-    border-radius: 4px;
-    z-index: 15;
-}
-
-.options-area__child:hover .option-popup {
-    display: block;
-    position: absolute;
-    width: 20rem;
-    left: calc(100% + var(--popup-offset));
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.option-popup::before {
-    content: "";
-    position: absolute;
-    left: calc(-1 * var(--width) - var(--popup-offset));
-    top: calc(50% - var(--width) / 2);
-    width: calc(var(--width) + var(--popup-offset));
-    height: var(--width);
-    background-color: red;
-}

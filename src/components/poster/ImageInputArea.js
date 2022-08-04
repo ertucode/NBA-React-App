@@ -15,7 +15,7 @@ const dropAreaStyle = {
 };
 
 export default function ImageInputArea({ setImgSrc }) {
-	const { textState } = useContext(PosterContext);
+	const { backgroundState } = useContext(PosterContext);
 
 	function handleDragOver(e) {
 		e.stopPropagation();
@@ -50,7 +50,7 @@ export default function ImageInputArea({ setImgSrc }) {
 			onDragOver={(e) => handleDragOver(e)}
 			style={{
 				...dropAreaStyle,
-				"--drop-area-color": getInverseColor(textState.bg.style.color),
+				"--drop-area-color": getInverseColor(backgroundState.color),
 			}}
 			className="flex-center"
 		>

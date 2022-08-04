@@ -6,7 +6,7 @@ const playerNameStyle = {
 };
 
 export default function PlayerNameSection({ index }) {
-	const { players, setPlayers, textState } = useContext(PosterContext);
+	const { players, setPlayers, fontState } = useContext(PosterContext);
 	const thisPlayer = players[index];
 
 	return (
@@ -21,7 +21,7 @@ export default function PlayerNameSection({ index }) {
 			}}
 			style={{
 				...playerNameStyle,
-				...textState.playerName.style,
+				...fontState.playerName.style,
 			}}
 		>
 			{thisPlayer.fullName}

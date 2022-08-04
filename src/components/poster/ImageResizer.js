@@ -2,16 +2,7 @@ import React, { useContext } from "react";
 import { PosterContext } from "../../pages/PlayerPosterPage";
 import ShadowPicker from "./ShadowPicker";
 import SliderComponent from "./SliderComponent";
-
-const imageResizeFieldContainerStyle = {
-	display: "flex",
-	flexWrap: "wrap",
-	zIndex: 5,
-};
-
-const imageTransformFieldStyle = {
-	display: "flex",
-};
+import FileInputButton from "./FileInputButton";
 
 export default function ImageResizer() {
 	const {
@@ -30,15 +21,14 @@ export default function ImageResizer() {
 	}
 
 	return (
-		<div>
-			<div style={imageResizeFieldContainerStyle}>
-				{imageSources
-					.filter((source) => source.src != null)
-					.map((source) => {
-						return (
-							<fieldset key={source.id}>
-								<legend>Player {source.id + 1} image</legend>
-								<div style={imageTransformFieldStyle}>
+		<div className="image-resizer-container">
+			{imageSources.map((source) => {
+				return (
+					<fieldset key={source.id} className="image-field-set">
+						<legend>Player {source.id + 1} image</legend>
+						{source.src != null ? (
+							<div className="player-resizer-has-image">
+								<div className="image-resizer-slider-container">
 									{Object.entries(
 										imageTransforms[source.id]
 									).map(([key, value]) => (
@@ -48,7 +38,7 @@ export default function ImageResizer() {
 													min: value.min,
 													max: value.max,
 													step: value.step,
-													label: key,
+													label: value.label,
 													value: value.value,
 													setValue: (e) =>
 														handleImageResize(
@@ -73,10 +63,38 @@ export default function ImageResizer() {
 								>
 									Delete image
 								</button>
-							</fieldset>
-						);
-					})}
-			</div>
+							</div>
+						) : (
+							<FileInputButton
+								fileCallback={(file) => {
+									if (
+										file.type &&
+										!file.type.startsWith("image/")
+									) {
+										console.log(
+											"File is not an image.",
+											file.type,
+											file
+										);
+										return;
+									}
+
+									const reader = new FileReader();
+									reader.addEventListener("load", (event) => {
+										setImageSources((prevSources) => {
+											const newSources = [...prevSources];
+											newSources[source.id].src =
+												event.target.result;
+											return newSources;
+										});
+									});
+									reader.readAsDataURL(file);
+								}}
+							/>
+						)}
+					</fieldset>
+				);
+			})}
 		</div>
 	);
 }
