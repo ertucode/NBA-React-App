@@ -1,0 +1,54 @@
+.poster-page__player-name-section {
+	text-align: center;
+    text-transform: uppercase;
+    margin: auto
+}
+
+.player-name-image {
+    padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	row-gap: 1rem;
+	flex: 1 1;
+	position: relative;
+    min-height: 30rem;
+}
+    
+.input-field-poster {
+    margin: auto;
+    z-index: 6;
+}
+
+@media (max-width: 800px) {
+    .poster-page__player-name-section {
+        flex-grow: 0;
+        margin: 0;
+    }
+    .player-name-image:first-child {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: start;
+    }
+    .player-name-image:last-child {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: end;
+    }
+
+}
+@media (min-width: 800px) {
+    .has-image {
+        flex-direction: row;
+        align-items: start;
+    }
+
+    .has-image:last-child {
+        flex-direction: row-reverse;
+    }
+    
+    .has-image > *:first-child {
+        margin: 0 auto;
+    }
+}
+

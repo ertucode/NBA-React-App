@@ -6,14 +6,13 @@ import getPlayersOfCount from "../../utils/getPlayersOfCount";
 import useDebounce from "../../utils/useDebounce";
 import Player from "../../utils/Player";
 
-const textInputFieldStyle = {
-	margin: "auto",
+/*,
 	position: "absolute",
 	top: "5%",
 	left: "50%",
 	transform: "translateX(-50%)",
-	zIndex: 1,
-};
+
+*/
 
 export default function TextInputField({ index }) {
 	const inputRef = useRef();
@@ -47,10 +46,7 @@ export default function TextInputField({ index }) {
 
 	return (
 		<>
-			<div
-				className="input-field grow-shrink"
-				style={textInputFieldStyle}
-			>
+			<div className="input-field input-field-poster grow-shrink">
 				<div className="input-with-dropdown grow-shrink">
 					<input
 						className={

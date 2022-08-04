@@ -6,28 +6,9 @@ import {
 	NOTIFICATION_TYPES,
 } from "../_general/Notification/NotificationProvider";
 
-const statDisplayerStyles = {
-	display: "grid",
-	gridTemplateColumns: "1fr 1.4fr 1fr",
-	alignItems: "center",
-};
-
-const spanStyles = {
-	textAlign: "center",
-	fontWeight: 700,
-	color: "hsl(360, 100%, 30%)",
-	zIndex: 5,
-};
-
 const statNameStyles = {
 	fontSize: "1.2em",
 	color: "var(--clr-primary)",
-};
-
-const middlePanelStyles = {
-	display: "grid",
-	gridTemplateColumns: "1fr",
-	position: "relative",
 };
 
 export default function StatDisplayer() {
@@ -72,38 +53,34 @@ export default function StatDisplayer() {
 
 	return (
 		<>
-			<div style={middlePanelStyles}>
+			<div className="stat-displayer-panel">
 				{getTrues(options.desiredStats).map((stat) => (
-					<div key={stat} style={statDisplayerStyles}>
+					<div key={stat} className="stat-individual">
 						<span
 							style={{
-								...spanStyles,
 								...textState.statNumber.style,
-								textAlign: "left",
 							}}
 							key={stat + "0"}
-							className={addedSpanClass}
+							className={` stat-span ${addedSpanClass}`}
 						>
 							{getTwoDecimal(averageStats[0][stat])}
 						</span>
 						<span
 							style={{
-								...spanStyles,
 								...statNameStyles,
 								...textState.statName.style,
 							}}
+							className="stat-span"
 							key={stat + "1"}
 						>
 							{stat}
 						</span>
 						<span
 							style={{
-								...spanStyles,
 								...textState.statNumber.style,
-								textAlign: "right",
 							}}
 							key={stat + "2"}
-							className={addedSpanClass}
+							className={` stat-span ${addedSpanClass}`}
 						>
 							{getTwoDecimal(averageStats[1][stat])}
 						</span>

@@ -1,4 +1,6 @@
 @import "options.css";
+@import "player-name.css";
+@import "utilities.css";
 
 .poster-page__player-name-section {
     cursor: pointer;
@@ -39,6 +41,55 @@
     position: relative;
     z-index: 1
 }
+
+.stat-displayer-panel {
+    display: grid;
+	grid-template-columns: 1fr;
+	position: relative;
+}
+
+.stat-individual {
+    display: grid;
+	grid-template-columns: 1fr 1.4fr 1fr;
+    grid-template-rows: 1fr;
+	align-items: center;
+}
+
+.stat-span {
+	z-index: 5;
+}
+
+:where(.stat-span:nth-child(1)) {
+    text-align: left;
+}
+:where(.stat-span:nth-child(2)) {
+    text-align: center;
+}
+:where(.stat-span:nth-child(3)) {
+    text-align: right;
+}
+
+@media (max-width: 800px) {
+    .poster-area {
+        flex-direction: column;
+    }
+    .stat-displayer-panel {
+        display: flex;
+        justify-content: space-around;
+    }
+    .stat-individual {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1.4fr 1fr;
+    }
+    .stat-span {
+        text-align: center
+    }
+}
+
+
+
+
+
 
 /* .poster-area::after {
     content: "";

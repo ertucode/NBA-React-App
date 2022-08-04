@@ -3,7 +3,6 @@ import ImageInputArea from "./ImageInputArea";
 import { PosterContext } from "../../pages/PlayerPosterPage";
 
 const playerImageCardStyle = {
-	gridRow: "3 / 11",
 	overflow: "hidden",
 };
 
@@ -12,13 +11,6 @@ const playerImageStyle = {
 	pointerEvents: "none",
 	overflow: "hidden",
 };
-
-/*
- -webkit-filter: drop-shadow(1px 1px 0 black)
-                  drop-shadow(-1px -1px 0 black);
-  filter: drop-shadow(1px 1px 0 black) 
-          drop-shadow(-1px -1px 0 black);
-*/
 
 export default function PlayerImage({ index }) {
 	const [imageTransformStyle, setImageTransformStyle] = useState({});
@@ -35,7 +27,7 @@ export default function PlayerImage({ index }) {
 	const shadowStyle = shadowStyles[index];
 
 	return (
-		<div style={playerImageCardStyle} className="flex-center">
+		<div style={playerImageCardStyle} className="flex-center m-auto">
 			{imageSources[index].src == null ? (
 				<ImageInputArea
 					setImgSrc={(src) =>

@@ -6,3 +6,5 @@ Poster width height ?
 Combine titles?
 Add to storage
 Get player images from api
+italic underline?
+Make the better stat different

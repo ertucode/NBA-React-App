@@ -1,6 +1,16 @@
 #options-area {
     background-color: var(--clr-fourth);
     box-shadow: 0 0 5px var(--clr-third);
+    cursor: pointer;
+    width: 3rem;
+    transition: width .15s ease-in;
+    --width: 4rem;
+    --popup-offset: 2rem;
+}
+
+
+#options-area:hover{
+    width: var(--width);
 }
 
 #options-area__stat-selections{
@@ -31,16 +41,36 @@
     background-color: var(--clr-primary);
 }
 
+.options-area__child {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    margin: .5rem 0;
+    cursor: pointer;
+}
 
+.options-area__child .option-popup {
+    display: none;
+    background-color: var(--clr-fourth);
+    border: var(--clr-primary) 2px solid;
+    border-radius: 4px;
+    z-index: 15;
+}
 
-/* 
-#options-area__stat-selections button.deactivated::before{
+.options-area__child:hover .option-popup {
+    display: block;
     position: absolute;
+    width: 20rem;
+    left: calc(100% + var(--popup-offset));
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.option-popup::before {
     content: "";
-    width: 80%;
-    height: 2px;
-    left: 10%;
-    top: calc(50% - 2.5px);
-    background-color: var(--clr-primary);
-    transform: rotate(-20deg)
-} */
+    position: absolute;
+    left: calc(-1 * var(--width) - var(--popup-offset));
+    top: calc(50% - var(--width) / 2);
+    width: calc(var(--width) + var(--popup-offset));
+    height: var(--width);
+    background-color: red;
+}

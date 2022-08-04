@@ -2,10 +2,6 @@ import React, { useContext } from "react";
 import { PosterContext } from "../../pages/PlayerPosterPage";
 
 const playerNameStyle = {
-	position: "absolute",
-	top: "5%",
-	left: "50%",
-	transform: "translateX(-50%)",
 	zIndex: 5,
 };
 
@@ -24,7 +20,6 @@ export default function PlayerNameSection({ index }) {
 				});
 			}}
 			style={{
-				margin: "auto",
 				...playerNameStyle,
 				...textState.playerName.style,
 			}}
