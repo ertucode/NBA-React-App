@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import { PosterContext } from "../../pages/PlayerPosterPage";
 import ImageResizer from "./ImageResizer";
 
@@ -6,6 +6,7 @@ import { ReactComponent as StatSvg } from "./svg/stat1.svg";
 import { ReactComponent as FontSvg } from "./svg/font1.svg";
 import { ReactComponent as BackgroundSvg } from "./svg/background.svg";
 import { ReactComponent as ImageSvg } from "./svg/image1.svg";
+import { ReactComponent as HideSvg } from "./svg/hide.svg";
 import FontHandler from "./FontHandler";
 import BackgroundPicker from "./BackgroundPicker";
 
@@ -16,6 +17,8 @@ function handleSvgHover(state, action) {
 }
 
 export default function PosterOptions({ setOptions }) {
+	const [minimized, setMinimized] = useState(false);
+
 	const { players, options, setGettingStats, setGettingStatsFailed } =
 		useContext(PosterContext);
 
@@ -42,7 +45,11 @@ export default function PosterOptions({ setOptions }) {
 	}
 
 	return (
-		<div id="options-area" tabIndex="0">
+		<div
+			id="options-area"
+			className={`${minimized ? "minimized" : ""}`}
+			tabIndex="0"
+		>
 			<div
 				className="options-area__child"
 				id="options-area__stat-container"
@@ -129,6 +136,32 @@ export default function PosterOptions({ setOptions }) {
 				</div>
 				<div className="option-popup">
 					<ImageResizer />
+				</div>
+			</div>
+			<div
+				className="options-area__child"
+				id="options-area__hide-handler"
+				onMouseEnter={() => dispatch({ key: "hide", isHovering: true })}
+				onMouseLeave={() =>
+					dispatch({ key: "hide", isHovering: false })
+				}
+				onClick={() => {
+					setMinimized((prevState) => !prevState);
+				}}
+			>
+				<div className="svg-container">
+					<HideSvg
+						fill={`${hoverState.hide ? "#ffffff" : "#000000"}`}
+					/>
+				</div>
+				<div className="option-popup">
+					{!minimized ? (
+						<div>
+							Click to hide the editor at the top of the page
+						</div>
+					) : (
+						<div>Click to restore</div>
+					)}
 				</div>
 			</div>
 		</div>
