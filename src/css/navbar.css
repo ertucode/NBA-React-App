@@ -13,6 +13,10 @@
     width: 100%;
 }
 
+.navbar-container.poster-active {
+    position: absolute;
+}
+
 .navbar-site-name-container {
     flex: 1 1 0;
     padding-left: 3rem;
@@ -26,6 +30,12 @@
 
 .navbar-link {
     color: var(--clr-fourth);
+    padding: .7rem 1.6rem;
+}
+
+.navbar-link.active-nav {
+    color: var(--clr-secondary);
+    background-color: var(--clr-fourth);
 }
 
 @media (max-width: 600px){

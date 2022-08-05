@@ -40,10 +40,13 @@
     display: none
 }
 #options-area.minimized #options-area__hide-handler:hover {
-    background-color: var(--clr-fourth);
+    background-color: var(--clr-third);
 }
 #options-area.minimized #options-area__hide-handler {
-    height: 1rem
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #options-area.minimized #options-area__hide-handler .option-popup div {
     border-top-left-radius: 0rem;

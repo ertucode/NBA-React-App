@@ -157,7 +157,7 @@ export default function PosterOptions({ setOptions }) {
 				<div className="option-popup">
 					{!minimized ? (
 						<div>
-							Click to hide the editor at the top of the page
+							Click to hide the editor at the bottom of the page
 						</div>
 					) : (
 						<div>Click to restore</div>

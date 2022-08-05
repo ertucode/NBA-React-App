@@ -2,6 +2,8 @@ import axios from "axios";
 import Table from "./Table";
 // import { PRIORITY_ORDER } from "./statMap";
 
+const LOCAL_STORAGE_PREFIX = "NBA_PLAYER-";
+
 export default class Player {
 	constructor(playerData) {
 		this.id = playerData.id;
@@ -16,56 +18,72 @@ export default class Player {
 	}
 
 	async getStats(setGettingStats, setGettingStatsFailed) {
-		let playerStatsArray = [];
+		const storageValue = localStorage.getItem(
+			LOCAL_STORAGE_PREFIX + this.id
+		);
 
-		const previouslyFetchedSeasons = Object.keys(this.fetchedStats);
+		if (storageValue != null) this.setSeasonStats(JSON.parse(storageValue));
+		else {
+			let playerStatsArray = [];
 
-		let season =
-			previouslyFetchedSeasons.length === 0
-				? 2021
-				: parseInt(Math.min(...previouslyFetchedSeasons));
+			const previouslyFetchedSeasons = Object.keys(this.fetchedStats);
 
-		this.gettingStatsFailed = false;
+			let season =
+				previouslyFetchedSeasons.length === 0
+					? 2021
+					: parseInt(Math.min(...previouslyFetchedSeasons));
 
-		let seasonsSinceLastResponse = 0;
-		let encounteredFirstSeason = false;
+			this.gettingStatsFailed = false;
 
-		while (season > 1978) {
-			try {
-				const playerStatsData = await axios.get(
-					"https://www.balldontlie.io/api/v1/season_averages",
-					{
-						params: { player_ids: [this.id], season: season },
+			let seasonsSinceLastResponse = 0;
+			let encounteredFirstSeason = false;
+
+			while (season > 1978) {
+				try {
+					const playerStatsData = await axios.get(
+						"https://www.balldontlie.io/api/v1/season_averages",
+						{
+							params: { player_ids: [this.id], season: season },
+						}
+					);
+					playerStatsArray = playerStatsData.data.data;
+
+					if (playerStatsArray.length !== 0) {
+						encounteredFirstSeason = true;
+						seasonsSinceLastResponse = 0;
+						this.fetchedStats[season] = playerStatsArray[0];
+					} else {
+						seasonsSinceLastResponse += 1;
 					}
-				);
-				playerStatsArray = playerStatsData.data.data;
 
-				if (playerStatsArray.length !== 0) {
-					encounteredFirstSeason = true;
-					seasonsSinceLastResponse = 0;
-					this.fetchedStats[season] = playerStatsArray[0];
-				} else {
-					seasonsSinceLastResponse += 1;
-				}
+					if (seasonsSinceLastResponse > 5 && encounteredFirstSeason)
+						break;
 
-				if (seasonsSinceLastResponse > 5 && encounteredFirstSeason)
+					season -= 1;
+				} catch (err) {
+					CB(setGettingStatsFailed, true);
+					this.gettingStatsFailed = true;
 					break;
+				}
+			}
 
-				season -= 1;
-			} catch (err) {
-				CB(setGettingStatsFailed, true);
-				this.gettingStatsFailed = true;
-				break;
+			if (!this.gettingStatsFailed) {
+				this.setSeasonStats(this.fetchedStats);
+
+				localStorage.setItem(
+					LOCAL_STORAGE_PREFIX + this.id,
+					JSON.stringify(this.fetchedStats)
+				);
 			}
 		}
 
-		if (!this.gettingStatsFailed) {
-			this.seasonStats = new Table(this.fetchedStats);
-			this.minSeason = this.seasonStats.rows[0][0];
-			this.maxSeason = this.seasonStats.rows.at(-1)[0];
-		}
-
 		CB(setGettingStats, false);
+	}
+
+	setSeasonStats(data) {
+		this.seasonStats = new Table(data);
+		this.minSeason = this.seasonStats.rows[0][0];
+		this.maxSeason = this.seasonStats.rows.at(-1)[0];
 	}
 
 	getSeasonAverages(stats, min = this.minSeason, max = this.maxSeason) {
@@ -82,6 +100,7 @@ export default class Player {
 				minIndex,
 				maxIndex + 1
 			);
+
 			if (stat === "MP") {
 				const averageTimeSec = getAverageFromArray(
 					statColumn.map((time) => {
