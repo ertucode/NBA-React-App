@@ -4,7 +4,7 @@ import ImageResizer from "./ImageResizer";
 
 import { ReactComponent as StatSvg } from "./svg/stat1.svg";
 import { ReactComponent as FontSvg } from "./svg/font1.svg";
-import { ReactComponent as ColorSvg } from "./svg/color1.svg";
+import { ReactComponent as BackgroundSvg } from "./svg/background.svg";
 import { ReactComponent as ImageSvg } from "./svg/image1.svg";
 import FontHandler from "./FontHandler";
 import BackgroundPicker from "./BackgroundPicker";
@@ -87,7 +87,7 @@ export default function PosterOptions({ setOptions }) {
 				}
 			>
 				<div className="svg-container">
-					<ColorSvg
+					<BackgroundSvg
 						fill={`${hoverState.color ? "#ffffff" : "#000000"}`}
 					/>
 				</div>

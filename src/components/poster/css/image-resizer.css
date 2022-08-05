@@ -4,4 +4,11 @@
 
 .image-field-set {
     min-width: 7rem;
+    border: 1px solid rgba(255,255,255, 0.4);
+    border-radius: .2rem;
+    padding: 1rem;
+}
+
+.image-field-set legend {
+    padding: 0;
 }

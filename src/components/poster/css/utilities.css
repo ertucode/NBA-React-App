@@ -15,3 +15,43 @@ input[type="color"] {
     
     cursor: pointer;
 }
+
+input[type="range"] {
+    cursor: pointer;
+}
+
+.o-0 {
+    opacity: 0;
+    transition: opacity .1s;
+}
+
+.p-none {
+    pointer-events: none;
+}
+
+.abs-same {
+    position:absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right:0;
+}
+
+.generic-button {
+    border: 1px solid var(--clr-fourth);
+    background-color: var(--clr-third);
+    color: var(--clr-fourth);
+    cursor: pointer;
+
+}
+
+.generic-button:hover,
+.generic-button:focus {
+    background-color: hsl(180, 39%, 95%);
+    color: var(--clr-secondary)
+}
+
+.option-header {
+    font-size: .8rem;
+    font-weight: 700;
+}

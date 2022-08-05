@@ -7,19 +7,36 @@ const posterResizableStyle = {
 	display: "flex",
 	margin: "1rem 2rem",
 	boxShadow: "0 0 10px var(--clr-third)",
-	backgroundColor: "#f8f8f8",
 	overflow: "hidden",
 };
 
 export default function PosterArea() {
 	const { backgroundState } = useContext(PosterContext);
 
+	function getOverlayStyle() {
+		const choice = backgroundState.colorChoice;
+		if (choice === "color") {
+			return {
+				backgroundColor: backgroundState.color,
+			};
+		} else if (choice === "gradient") {
+			const lg = backgroundState.linearGradient;
+			return {
+				backgroundImage:
+					lg.gradients.length > 1
+						? `linear-gradient(${
+								lg.direction
+						  }deg, ${lg.gradients.join(", ")})`
+						: "none",
+			};
+		}
+	}
+
 	return (
 		<div
 			className="poster-area"
 			style={{
 				...posterResizableStyle,
-				backgroundColor: backgroundState.color,
 				backgroundImage: `url(${backgroundState.src})`,
 				backgroundSize: backgroundState.size,
 				backgroundRepeat: "no-repeat",
@@ -28,6 +45,13 @@ export default function PosterArea() {
 			<PlayerNameImage index={0} />
 			<StatDisplayer />
 			<PlayerNameImage index={1} />
+			<div
+				className="abs-same poster-background"
+				style={{
+					...getOverlayStyle(),
+					opacity: backgroundState.colorOpacity,
+				}}
+			></div>
 		</div>
 	);
 }

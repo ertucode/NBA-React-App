@@ -21,7 +21,7 @@ const initialFontStates = {
 		style: {
 			color: "#9999ff",
 			fontWeight: "700",
-			fontSize: "3rem",
+			fontSize: "15px",
 		},
 	},
 	statName: {
@@ -29,7 +29,7 @@ const initialFontStates = {
 		style: {
 			color: "#444444",
 			fontWeight: "400",
-			fontSize: "1rem",
+			fontSize: "15px",
 		},
 	},
 	statNumber: {
@@ -37,16 +37,24 @@ const initialFontStates = {
 		style: {
 			color: "#44ff44",
 			fontWeight: "700",
-			fontSize: "2rem",
+			fontSize: "15px",
 		},
 	},
 };
 
 const initialBackgroundState = {
 	color: "#ffffff",
+	colorOpacity: 0.5,
 	src: null,
 	size: "cover",
+	linearGradient: {
+		direction: "0",
+		gradients: [],
+	},
+	colorChoice: "gradient",
 };
+
+// gradients
 
 // transform
 // transparency

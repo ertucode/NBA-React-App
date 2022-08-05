@@ -1,34 +1,36 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import FileInputButton from "./FileInputButton";
 
 import { PosterContext } from "../../pages/PlayerPosterPage";
 
-const dropAreaStyle = {
-	border: "3px dashed var(--drop-area-color, black)",
-	color: "var(--drop-area-color, black)",
-	borderRadius: "1rem",
-	width: "80%",
-	aspectRatio: 1,
-	margin: "auto",
-	flexDirection: "column",
-	zIndex: 5,
-};
+import { ReactComponent as ArrowSvg } from "./svg/arrow-down.svg";
 
 export default function ImageInputArea({ setImgSrc }) {
+	const [isDragging, setIsDragging] = useState(false);
+
 	const { backgroundState } = useContext(PosterContext);
 
 	function handleDragOver(e) {
+		e.target.classList.add("active");
+		setIsDragging(true);
 		e.stopPropagation();
 		e.preventDefault();
 		e.dataTransfer.dropEffect = "copy";
 	}
 
 	function handleDrop(e) {
+		e.target.classList.remove("active");
+		setIsDragging(false);
 		e.stopPropagation();
 		e.preventDefault();
 		const file = e.dataTransfer.files[0];
 
 		loadImage(file);
+	}
+
+	function handleDragLeave(e) {
+		e.target.classList.remove("active");
+		setIsDragging(false);
 	}
 
 	function loadImage(file) {
@@ -44,19 +46,49 @@ export default function ImageInputArea({ setImgSrc }) {
 		reader.readAsDataURL(file);
 	}
 
+	const colorStyle =
+		backgroundState.src == null &&
+		(backgroundState.colorChoice === "color" ||
+			backgroundState.linearGradient.gradients.length < 2)
+			? {
+					"--drop-area-color": getInverseColor(backgroundState.color),
+			  }
+			: {
+					"--drop-area-color": "var(--clr-fourth)",
+					backgroundColor: "rgba(0, 0, 0, 0.4)",
+			  };
+
+	const opacityClass = isDragging ? "o-0" : "";
+
 	return (
 		<div
 			onDrop={(e) => handleDrop(e)}
 			onDragOver={(e) => handleDragOver(e)}
+			onDragLeave={(e) => handleDragLeave(e)}
 			style={{
-				...dropAreaStyle,
-				"--drop-area-color": getInverseColor(backgroundState.color),
+				...colorStyle,
 			}}
-			className="flex-center"
+			className="flex-center drop-area"
 		>
-			<div className="drag-and-drop">Drag and drop your Image</div>
-			<div>or</div>
-			<FileInputButton fileCallback={loadImage} />
+			<div className={`drag-and-drop-text ${opacityClass} p-none`}>
+				Drag and drop your Image
+			</div>
+			<div className={`${opacityClass} p-none`}>or</div>
+			<div className={opacityClass}>
+				<FileInputButton fileCallback={loadImage} />
+			</div>
+			<div className={`arrow-svg-wrapper ${!isDragging ? "o-0" : ""}`}>
+				<ArrowSvg
+					fill={getInverseColor(backgroundState.color)}
+					stroke={
+						backgroundState.src != null &&
+						(backgroundState.colorChoice === "color" ||
+							backgroundState.linearGradient.gradients.length < 2)
+							? backgroundState.color
+							: "none"
+					}
+				/>
+			</div>
 		</div>
 	);
 }

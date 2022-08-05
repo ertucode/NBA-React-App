@@ -1,0 +1,57 @@
+
+.drop-area {
+    --drop-area-border-radius: 1em;
+	border: 2px dashed var(--drop-area-color, var(--clr-secondary));
+	color: var(--drop-area-color, var(--clr-secondary));
+	border-radius: var(--drop-area-border-radius);
+	width: 80%;
+	aspect-ratio: 1;
+	margin: auto;
+	flex-direction: column;
+	z-index: 5;
+	padding: 1.5rem;
+    row-gap: .5rem;
+    position: relative;
+}
+
+.drop-area.active {
+    background-color: red;
+}
+
+.file-upload-button {
+    border: 2px solid var(--clr-secondary);
+    background-color: var(--clr-third);
+    color: var(--clr-fourth);
+    padding: .5rem 1rem;
+    border-radius: 100vmax;
+    cursor: pointer;
+}
+
+.file-upload-button:hover,
+.file-upload-button:focus {
+    background-color: hsl(180, 39%, 95%);
+    color: var(--clr-secondary)
+}
+
+.drag-and-drop-text {
+    text-align: center;
+}
+
+.arrow-svg-wrapper {
+    position: absolute;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--drop-area-border-radius);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-svg-wrapper svg {
+    width: 40%;
+    height: 40%;
+}

@@ -4,6 +4,7 @@
 @import "font-handler.css";
 @import "image-resizer.css";
 @import "background-picker.css";
+@import "file-upload.css";
 
 .poster-page__player-name-section {
     cursor: pointer;
@@ -89,7 +90,9 @@
     }
 }
 
-
+.poster-background {
+    z-index: 2;
+}
 
 
 

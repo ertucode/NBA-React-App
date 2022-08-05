@@ -46,13 +46,13 @@ export default function TextInputField({ index }) {
 
 	return (
 		<>
-			<div className="input-field input-field-poster grow-shrink">
-				<div className="input-with-dropdown grow-shrink">
+			<div className="input-field input-field-poster">
+				<div className="input-with-dropdown">
 					<input
 						className={
 							searchedPlayers.length === 0 || !showDropdown
-								? "empty grow-shrink"
-								: "grow-shrink"
+								? "empty "
+								: ""
 						}
 						onChange={(e) => {
 							setPlayerSearchTerm(inputRef.current.value);

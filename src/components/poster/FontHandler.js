@@ -8,7 +8,9 @@ export default function FontHandler() {
 		<div className="font-handler-container">
 			{Object.entries(fontState).map(([key, value]) => (
 				<div key={key}>
-					<div className="font-handler-label">{value.label}</div>
+					<div className="font-handler-label option-header">
+						{value.label}
+					</div>
 					<div className="font-handler-group-container">
 						<input
 							type="color"
@@ -62,7 +64,7 @@ export default function FontHandler() {
 									const newState = { ...prevState };
 									newState[
 										key
-									].style.fontSize = `${e.target.value}rem`;
+									].style.fontSize = `${e.target.value}px`;
 									return newState;
 								});
 							}}
@@ -75,6 +77,6 @@ export default function FontHandler() {
 }
 
 function getNumberFromFontSize(fontSize) {
-	if (fontSize == null) return 3;
-	return parseFloat(fontSize.slice(0, -3));
+	if (fontSize == null) return 2;
+	return parseFloat(fontSize.slice(0, -2));
 }

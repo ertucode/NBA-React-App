@@ -1,4 +1,56 @@
+.background-picker-wrapper {
+    width: 15rem;
+}
+
+
 #background-color {
     width: 2rem;
     height: 2rem;
+}
+
+.background-color-gradient-option-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: .3rem 0;
+    column-gap: .3rem;
+}
+
+.background-radio-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.background-radio-wrapper.opacity {
+    flex-grow: 1;
+}
+
+.gradient-direction-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.background-option-wrapper,
+.gradient-selections-wrapper,
+.linear-gradient-handler {
+    display: flex;
+    flex-direction: column;
+}
+
+.gradient-wrapper {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+}
+
+.gradient-wrapper button {
+    padding: .2rem .5rem;
+}
+
+
+.linear-gradient-add-button {
+    padding: .4rem .8rem;
+    border-radius: .3rem;
 }

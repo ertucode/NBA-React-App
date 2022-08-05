@@ -4,15 +4,25 @@ Make the editor an openable item
 Better styles
 Poster width height ?
 Combine titles?
-Add to storage
 Get player images from api
 italic underline?
 Make the better stat different
 Keyboard focus tabindex = "0"
 
 
-
 add hover effects
-background stuff
 
 add one player mode
+
+
+
+*********
+ADD DOWNLOAD
+NAVBAR CURRENT TAB
+ADD TO STORAGE 
+MAKE SAMPLES
+
+
+
+*********
+TABLE PAGE GET PLAYER IMAGE FROM API

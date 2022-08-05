@@ -11,7 +11,6 @@
 
     background-color: var(--clr-fourth);
     box-shadow: 0 0 5px var(--clr-third);
-    cursor: pointer;
     width: 3rem;
     transition: width .15s ease-in;
     --width: 4rem;
@@ -31,7 +30,6 @@
     position: relative;
     /* aspect-ratio: 1 / 1;
     margin: .5rem 0; */
-    cursor: pointer;
 }
 
 .options-area__child .option-popup {
@@ -60,6 +58,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .options-area__child .svg-container svg{
@@ -130,3 +129,7 @@
 }
 
 
+#options-area .file-upload-button {
+    border-radius: .3rem;
+    border: 1px solid var(--clr-fourth);
+}
