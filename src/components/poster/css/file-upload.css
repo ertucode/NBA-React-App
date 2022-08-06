@@ -23,7 +23,7 @@
     background-color: var(--clr-third);
     color: var(--clr-fourth);
     padding: .5rem 1rem;
-    border-radius: 100vmax;
+    border-radius: .5rem;
     cursor: pointer;
 }
 

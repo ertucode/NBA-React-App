@@ -19,9 +19,13 @@ add one player mode
 *********
 ADD DOWNLOAD -- NOT POSSIBLE
 NAVBAR CURRENT TAB - done
-ADD TO STORAGE - done
-MAKE SAMPLES
+ADD TO STORAGE - can do stored players uptop
+MAKE SAMPLES - done
 
+image resizer page ugly
+player image button ugly
+
+change scrollbar
 
 
 *********

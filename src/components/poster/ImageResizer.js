@@ -26,8 +26,10 @@ export default function ImageResizer() {
 				return (
 					<fieldset key={source.id} className="image-field-set">
 						<legend>Player {source.id + 1} image</legend>
+
 						{source.src != null ? (
 							<div className="player-resizer-has-image">
+								<div className="option-header">Translation</div>
 								<div className="image-resizer-slider-container">
 									{Object.entries(
 										imageTransforms[source.id]
@@ -53,6 +55,7 @@ export default function ImageResizer() {
 								</div>
 								<ShadowPicker index={source.id} />
 								<button
+									className="generic-button"
 									onClick={() =>
 										setImageSources((prevSources) => {
 											const newSources = [...prevSources];

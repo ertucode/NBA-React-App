@@ -43,7 +43,6 @@
     border: 1px solid var(--clr-primary);
     border-bottom: 1px solid var(--clr-fourth);
     border-radius: .2em .2em 0 0;
-    margin-right: .5em;
     outline: none;
 }
 
@@ -54,4 +53,9 @@
 
 .dropdown, .input-field input {
     width: 100%;
+}
+
+.input-field input:hover,
+.input-field input:focus {
+    background-color: rgba(0,0,0,0.05);
 }

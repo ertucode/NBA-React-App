@@ -3,12 +3,30 @@ import getUniqueId from "../../utils/getUniqueId";
 import TryAgain from "./TryAgain";
 import { DESCRIPTION_MAP } from "../../utils/statMap";
 
+import {
+	useNotification,
+	NOTIFICATION_TYPES,
+} from "../_general/Notification/NotificationProvider";
+
 export default function StatsTableStatsSection({ desiredPlayer, minimized }) {
 	const [gettingStats, setGettingStats] = useState(true);
 	const [gettingStatsFailed, setGettingStatsFailed] = useState(false);
 	const [updatingTable, setUpdatingTable] = useState(false);
 	const [clickedRows, setClickedRows] = useState([]);
 	const tableRef = useRef();
+
+	const dispatchNotification = useNotification();
+
+	useEffect(() => {
+		if (gettingStatsFailed)
+			dispatchNotification({
+				type: NOTIFICATION_TYPES.ERROR,
+				message: "Getting stats failed (Too many requests)",
+				location: "top-left",
+				time: 2000,
+			});
+		// eslint-disable-next-line
+	}, [gettingStatsFailed]);
 
 	function handleGettingStatsFailed() {
 		return (
@@ -17,7 +35,6 @@ export default function StatsTableStatsSection({ desiredPlayer, minimized }) {
 					Getting stats failed...{" "}
 					<TryAgain
 						handleClick={() => {
-							console.log("trying again");
 							setGettingStatsFailed(false);
 							setGettingStats(true);
 							desiredPlayer.getStats(
@@ -79,6 +96,7 @@ export default function StatsTableStatsSection({ desiredPlayer, minimized }) {
 					className="stats-table__stat--row"
 					style={handleRowHighlight(row[0])}
 					onClick={() => handleRowClick(row[0])}
+					tabIndex="0"
 				>
 					{row.map((val) => {
 						return <td key={getUniqueId()}>{val}</td>;
@@ -116,6 +134,7 @@ export default function StatsTableStatsSection({ desiredPlayer, minimized }) {
 												handleColumnSort(stat);
 											}}
 											key={getUniqueId()}
+											tabIndex="0"
 										>
 											{stat}
 										</th>

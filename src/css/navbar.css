@@ -13,6 +13,10 @@
     width: 100%;
 }
 
+.navbar-container h1 {
+    font-size: 1.2rem;
+}
+
 .navbar-container.poster-active {
     position: absolute;
 }
@@ -31,6 +35,7 @@
 .navbar-link {
     color: var(--clr-fourth);
     padding: .7rem 1.6rem;
+    transition: color, background-color .2s ease-in;
 }
 
 .navbar-link.active-nav {

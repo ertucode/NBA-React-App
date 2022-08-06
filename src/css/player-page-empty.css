@@ -1,0 +1,22 @@
+.players-have-not-been-searched {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem;
+    color: var(--clr-primary);
+
+    animation: come-down 1s ease-out;
+}
+
+@keyframes come-down {
+    from {
+        transform: translateY(-15rem);
+    }
+    to {
+        transform: translateY(0rem);
+    }
+}
+
+.input-field.no-player {
+    animation: come-down 1s ease-out;
+}

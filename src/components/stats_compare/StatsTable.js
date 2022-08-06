@@ -10,6 +10,7 @@ export default function StatsTable({ desiredPlayer, handlePlayerRemove }) {
 				<h1
 					className="stats-table-header"
 					onClick={() => handlePlayerRemove(desiredPlayer)}
+					tabIndex="0"
 				>
 					{desiredPlayer.fullName}
 				</h1>

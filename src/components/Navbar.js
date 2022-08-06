@@ -5,7 +5,7 @@ export default function Navbar({ style }) {
 		<div className={`navbar-container `} style={style || {}}>
 			<div className="navbar-site-name-container">
 				<NavLink className="navbar-link" to="/">
-					<h1 className="site-name">Basketball Stats</h1>
+					<h1 className="site-name">NBA Stats</h1>
 				</NavLink>
 			</div>
 			<div className="navbar-page-links-container">

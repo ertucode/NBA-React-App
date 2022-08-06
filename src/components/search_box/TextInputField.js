@@ -5,7 +5,7 @@ import getPlayersOfCount from "../../utils/getPlayersOfCount";
 import useDebounce from "../../utils/useDebounce";
 import Player from "../../utils/Player";
 
-export default function TextInputField({ setDesiredPlayers }) {
+export default function TextInputField({ zeroPlayer, setDesiredPlayers }) {
 	const inputRef = useRef();
 
 	const [showDropdown, setShowDropdown] = useState(false);
@@ -66,10 +66,9 @@ export default function TextInputField({ setDesiredPlayers }) {
 	useEffect(() => {
 		setInputsAreDifferent(playerSearchTerm !== debouncedPlayerSearchTerm);
 	}, [playerSearchTerm, debouncedPlayerSearchTerm]);
-
 	return (
 		<>
-			<div className="input-field">
+			<div className={`input-field ${zeroPlayer ? "no-player" : ""}`}>
 				<div className="input-with-dropdown">
 					<input
 						className={
@@ -86,7 +85,7 @@ export default function TextInputField({ setDesiredPlayers }) {
 							setTimeout(() => setShowDropdown(false), 100);
 						}}
 						type="text"
-						placeholder="Search Player/Team"
+						placeholder="Search Player"
 					></input>
 
 					<>

@@ -1,25 +1,19 @@
 import React, { useContext } from "react";
 import { PosterContext } from "../../pages/PlayerPosterPage";
 
-const textInputStyles = {
-	width: "4rem",
-	padding: ".5rem",
-	marginRight: "1rem",
-};
-
 export default function ShadowPicker({ index }) {
 	const { shadowStyles, setShadowStyles } = useContext(PosterContext);
 
 	return (
-		<div>
-			Add Shadow<br></br>
-			<label>
-				Thickness
+		<div className="shadow-picker">
+			<div className="option-header">Shadow</div>
+			<div>
+				<label htmlFor="shadow-thickness">Thickness</label>
 				<input
 					type="number"
-					style={textInputStyles}
 					value={shadowStyles[index].th}
 					min={0}
+					id="shadow-thickness"
 					onChange={(e) => {
 						setShadowStyles((prevStyles) => {
 							const newStyles = [...prevStyles];
@@ -28,12 +22,13 @@ export default function ShadowPicker({ index }) {
 						});
 					}}
 				></input>
-			</label>
-			<label>
-				Color
+			</div>
+			<div>
+				<label htmlFor="shadow-color">Color</label>
 				<input
 					type="color"
 					value={shadowStyles[index].color}
+					id="shadow-color"
 					onChange={(e) => {
 						setShadowStyles((prevStyles) => {
 							const newStyles = [...prevStyles];
@@ -42,7 +37,7 @@ export default function ShadowPicker({ index }) {
 						});
 					}}
 				></input>
-			</label>
+			</div>
 		</div>
 	);
 }

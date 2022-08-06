@@ -50,7 +50,7 @@
         align-items: start;
     }
 
-    .has-image:last-child {
+    .has-image:nth-child(3) {
         flex-direction: row-reverse;
     }
     

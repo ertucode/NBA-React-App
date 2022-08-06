@@ -7,6 +7,7 @@
 @import "dropdown.css";
 @import "player-anchor.css";
 @import "landing-page.css";
+@import "player-page-empty.css";
 
 .app-container {
     display: flex;
@@ -20,6 +21,9 @@ body {
 
 main {
     margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 html {

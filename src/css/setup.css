@@ -44,3 +44,11 @@ body {
 select:hover {
     cursor: pointer;
 }
+
+button {
+    outline: none;
+}
+
+h1:focus {
+    outline: none;
+}

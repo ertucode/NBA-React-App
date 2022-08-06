@@ -92,7 +92,7 @@ export default function LinearGradientHandler() {
 							});
 						}}
 					>
-						+
+						Add gradient color
 					</button>
 				</>
 			</div>

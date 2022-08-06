@@ -48,11 +48,22 @@ function PlayerPage() {
 		);
 	}
 
+	const zeroPlayer =
+		pastDesiredPlayers.length === 0 && desiredPlayers.length === 0;
+
 	return (
 		<>
 			<div className="app-container">
 				<main>
-					<TextInputField setDesiredPlayers={setDesiredPlayers} />
+					{zeroPlayer && (
+						<h1 className="players-have-not-been-searched">
+							Start typing to get started
+						</h1>
+					)}
+					<TextInputField
+						zeroPlayer={zeroPlayer}
+						setDesiredPlayers={setDesiredPlayers}
+					/>
 					<PlayerAnchorContainer
 						desiredPlayers={desiredPlayers}
 						pastDesiredPlayers={pastDesiredPlayers}
