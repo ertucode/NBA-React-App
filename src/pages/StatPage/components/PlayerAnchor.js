@@ -1,6 +1,8 @@
 import React from "react";
 import "../css/player-anchor.css";
 
+import { ReactComponent as CrossSvg } from "../svg/cross.svg";
+
 export default function PlayerAnchor({
 	fullName,
 	active,
@@ -33,7 +35,7 @@ export default function PlayerAnchor({
 					onClick={handlePlayerForeverDelete}
 					title="Click to delete player forever"
 				>
-					❌
+					<CrossSvg style={{ width: "50%" }} />
 				</button>
 			)}
 		</div>

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import StatsTableStatsSection from "./StatsTableStatsSection";
 import "../css/table.css";
 
+import { ReactComponent as CrossSvg } from "../svg/cross.svg";
+
 export default function StatsTable({ desiredPlayer, handlePlayerRemove }) {
 	const [minimized, setMinimized] = useState(false);
 
@@ -28,7 +30,7 @@ export default function StatsTable({ desiredPlayer, handlePlayerRemove }) {
 					className="button-delete"
 					onClick={() => handlePlayerRemove(desiredPlayer)}
 				>
-					❌
+					<CrossSvg style={{ width: "50%" }} />
 				</button>
 			</div>
 
