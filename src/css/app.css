@@ -1,7 +1,6 @@
 @import "setup.css";
 @import "navbar.css";
 @import "input-field.css";
-@import "dropdown.css";
 
 .app-container {
     display: flex;

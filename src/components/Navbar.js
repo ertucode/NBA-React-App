@@ -11,7 +11,7 @@ export default function Navbar({ style }) {
 					className={({ isActive }) =>
 						`navbar-link ${isActive ? "active-nav" : ""}`
 					}
-					to="/player"
+					to="/"
 				>
 					Get Stats
 				</NavLink>

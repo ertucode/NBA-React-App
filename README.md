@@ -1,12 +1,12 @@
 Site [link](https://nba-stats-react.netlify.app)
 
-#### Available Scripts
+## Available Scripts
 
-npm run start
+-   npm run start
 
-npm run build
+-   npm run build
 
-#### Posters you can make with this app
+## Posters you can make with this app
 
 ![](.sample-posters/hyped.png)
 
