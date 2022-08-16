@@ -35,7 +35,7 @@ export default function PlayerAnchor({
 					onClick={handlePlayerForeverDelete}
 					title="Click to delete player forever"
 				>
-					<CrossSvg style={{ width: "50%" }} />
+					<CrossSvg style={{ width: "10px" }} />
 				</button>
 			)}
 		</div>

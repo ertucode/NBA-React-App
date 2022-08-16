@@ -29,6 +29,7 @@ export default function StatsTable({ desiredPlayer, handlePlayerRemove }) {
 				<button
 					className="button-delete"
 					onClick={() => handlePlayerRemove(desiredPlayer)}
+					style={{ display: "grid", placeItems: "center" }}
 				>
 					<CrossSvg style={{ width: "50%" }} />
 				</button>
