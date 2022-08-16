@@ -1,13 +1,7 @@
 @import "setup.css";
 @import "navbar.css";
 @import "input-field.css";
-@import "../components/_general/spinner.css";
-@import "../components/_general/info-popup.css";
-@import "table.css";
 @import "dropdown.css";
-@import "player-anchor.css";
-@import "landing-page.css";
-@import "player-page-empty.css";
 
 .app-container {
     display: flex;

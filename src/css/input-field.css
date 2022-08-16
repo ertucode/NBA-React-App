@@ -3,34 +3,12 @@
     justify-content: center;
     align-items: center;
 }
-/* 
-.input-field button {
-    background-color: var(--clr-secondary);
-    color: var(--clr-fourth);
-    border: none;
-    padding: .5em 1em;
-    border-radius: .2em;
-    font-size: var(--fs-300);
-
-
-} */
-
-/* .input-field button:hover {
-    background-color: var(--clr-fourth);
-    color: var(--clr-secondary);
-    cursor: pointer;
-} */
-
-/* .input-field .bg-green {
-    background-color: green;
-    color: var(--clr-fourth);
-} */
 
 .loading {
     position: relative;
 }
 
-
+/* dot dot dot */
 .loading::after {
     content: ".......";
     position: absolute;

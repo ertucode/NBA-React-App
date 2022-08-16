@@ -1,9 +1,10 @@
+import "./css/app.css";
+
 import { Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import PlayerPage from "./pages/PlayerPage";
-import PlayerPosterPage from "./pages/PlayerPosterPage";
+import StatPage from "./pages/StatPage/StatPage";
+import PlayerPosterPage from "./pages/PlayerPosterPage/PlayerPosterPage";
 import Navbar from "./components/Navbar";
-import NotificationProvider from "./components/_general/Notification/NotificationProvider";
+import NotificationProvider from "./components/Notification/NotificationProvider";
 
 /**IDEAS
  * Add graphs
@@ -14,8 +15,7 @@ function App() {
 		<NotificationProvider>
 			<Navbar />
 			<Routes>
-				<Route path="/" element={<LandingPage />} />
-				<Route path="/player" element={<PlayerPage />} />
+				<Route path="/player" element={<StatPage />} />
 				<Route path="/poster" element={<PlayerPosterPage />} />
 			</Routes>
 		</NotificationProvider>
