@@ -1,14 +1,12 @@
 import axios from "axios";
+import { getRequest } from "./fetchUtils";
 
 export default async function getPlayersOfCount(searchParam, count) {
-	count = Math.min(count, 20);
+  count = Math.min(count, 20);
 
-	const playersData = await axios.get(
-		"https://www.balldontlie.io/api/v1/players",
-		{
-			params: { search: `${searchParam}` },
-		}
-	);
+  const playersData = await getRequest("players", {
+    params: { search: `${searchParam}` },
+  });
 
-	return [...playersData.data.data.slice(0, count)];
+  return [...playersData.data.data.slice(0, count)];
 }
